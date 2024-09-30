@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const parkingLotScema = new Schema({
+const parkingLotSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -28,4 +28,4 @@ const parkingLotScema = new Schema({
     }
 });
 
-module.exports = mongoose.model("ParkingLot",parkingLotScema);
+module.exports = mongoose.model("ParkingLot",parkingLotSchema);
