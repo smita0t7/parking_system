@@ -2,9 +2,12 @@
 -   then make file server.js and folders such as controllers,models,public,routes.
 -   now install packages :
 -   npm install express, mongoose, multer, cors, body-parser and nodemon.
+
 -   expres : backend
 -   mongoose : database
 -   multer : save file on server
 -   cors : cross origin (whih origin can access our api)
 -   body-parser : parse body of request (used when we take user input)
 -   nodemon : make run our server automatic.
+
+-   To be continued bro.
