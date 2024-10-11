@@ -2,7 +2,7 @@
   "name": "parking_system",
   "version": "1.0.0",
   "main": "server.js",
-  "type" : "module",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
     "express": "^4.21.0",
     "mongoose": "^8.7.0",
     "multer": "^1.4.5-lts.1",
+    "nodejs": "^0.0.0",
     "nodemon": "^3.1.7"
   }
 }
