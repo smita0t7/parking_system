@@ -66,4 +66,4 @@ const reservationController = {
   },
 };
 
-module.exports = reservationController;
+export default reservationController;

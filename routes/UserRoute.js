@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import userController from "../controllers/userController";
 
-const bodyParser = require("body-parser");
+import bodyParser from 'body-parser';
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));

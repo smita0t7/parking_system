@@ -1,6 +1,6 @@
 import express from 'express';
 import parkingLotController from "../controllers/parkingLotControllers";
-
+const router = express.Router();
 
 //create a new parking lot
 router.post("/create", parkingLotController.createParkingLot);

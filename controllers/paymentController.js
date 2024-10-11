@@ -37,4 +37,4 @@ const paymentController = {
   },
 };
 
-module.exports = paymentController;
+export default paymentController;

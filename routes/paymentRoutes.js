@@ -7,6 +7,6 @@ import paymentController from '../controllers/paymentController';
 router.post ("/create", paymentController.createPayment);
 
 //get payment by reservation id
-router.get("/reservation/:reservationId", paymentController.getPaymentByReservationId);
+router.get("/reservation/:reservationID", paymentController.getPaymentByReservation);
 
 export default router;

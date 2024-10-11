@@ -1,6 +1,8 @@
-const express = require("express");
+import express from 'express';
+import reservationController from '../controllers/reservationController';
+
 const router = express.Router();
-const reservationController = require("../controllers/reservationController");
+
 
 //create a new reservation 
 router.post ("/create", reservationController.createReservation);
@@ -11,4 +13,4 @@ router.get("/user/:userId",reservationController.getReservationsByUser);
 //update reservation status
 router.put("/update-status", reservationController.updateReservationStatus);
 
-module.exports = router;
+export default router;
