@@ -13,7 +13,7 @@ const paymentSchema = new Schema({
     },
     paymentMethod:{
         type:String,
-        enu:["credit_card", "paypal", "cash"],
+        enum:["credit_card", "paypal", "cash"],
         required:true
     },
     paymentStatus:{

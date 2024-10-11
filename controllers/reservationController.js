@@ -1,5 +1,6 @@
-const Reservation = require('../models/Reservation');
-const ParkingLot = require('../models/ParkingLot');
+import Reservation from '../models/Reservation';
+import ParkingLot from '../models/parkingLot';
+
 
 const reservationController = {
   createReservation: async (req, res) => {

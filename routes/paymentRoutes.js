@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const paymentController = require('../controllers/paymentController'); 
+import paymentController from '../controllers/paymentController';
+
 
 //create a new payment
 router.post ("/create", paymentController.createPayment);
@@ -8,4 +9,4 @@ router.post ("/create", paymentController.createPayment);
 //get payment by reservation id
 router.get("/reservation/:reservationId", paymentController.getPaymentByReservationId);
 
-module.exports = router;
+export default router;

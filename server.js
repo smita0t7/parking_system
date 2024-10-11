@@ -1,31 +1,45 @@
-const express = require ("express");
-const mongoose = require ("mongoose");
-const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 const app = express();
 
-//import all routes component
-const userRoutes = require("./routes/userRoutes");
-const parkingLotRoutes = require("./routes/parkingLotRoutes");
-const reservationRoutes = require("./routes/resrvationRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
+// Import all routes components with file extensions
+import userRoutes from "./routes/userRoutes.js";
+import parkingLotRoutes from "./routes/parkingLotRoutes.js";
+import reservationRoutes from "./routes/reservationRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
-
-//middleware to parse json data
+// Middleware to parse JSON data
 app.use(express.json());
+app.use(cors({
+    origin: "*"
+}));
 
-//api routes
+// Connect to MongoDB function
+const connectDB = async () => {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/mydatabase', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('Connected to MongoDB');
+    } catch (err) {
+        console.error('Failed to connect to MongoDB', err);
+        process.exit(1);
+    }
+};
+
+// Call the database connection function
+connectDB();
+
+// API routes
 app.use("/api/users", userRoutes);
 app.use("/api/parking-lot", parkingLotRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/payments", paymentRoutes);
 
-//import 
-
-//connect to mongoDb
-connectDB();
-
-//start server
+// Start server
 const PORT = 3000;
-app.listen(PORT, () =>{
-    console.log(`server is running on port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -1,6 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const parkingLotController = require("../controllers/parkingLotControllers");
+import express from 'express';
+import parkingLotController from "../controllers/parkingLotControllers";
+
 
 //create a new parking lot
 router.post("/create", parkingLotController.createParkingLot);
@@ -11,4 +11,4 @@ router.get("/all", parkingLotController.getAllParkingLots);
 //update available slots
 router.put("/update", parkingLotController.updateAvailableSlots);
 
-module.exports = router;
+export default router;

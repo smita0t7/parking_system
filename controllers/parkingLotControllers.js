@@ -6,9 +6,9 @@ const parkingLotController = {
             const {name, location, totalSlots, pricePerHour} = req.body;
             const newParkingLot = new ParkingLot({
                 name,
-                lation,
+                location,
                 totalSlots,
-                available: totalSlots,
+                availableSlots: totalSlots,
                 pricePerHour
             });
             await newParkingLot.save();

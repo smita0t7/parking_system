@@ -1,5 +1,5 @@
-const Payment = require('../models/Payment');
-const Reservation = require('../models/Reservation');
+import Payment from '../models/Payment';
+import Reservation from '../models/Reservation';
 
 const paymentController = {
   createPayment: async (req, res) => {
