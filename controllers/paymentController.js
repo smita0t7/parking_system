@@ -1,5 +1,5 @@
-import Payment from '../models/Payment';
-import Reservation from '../models/Reservation';
+import Payment from '../models/Payment.js';
+import Reservation from '../models/Reservation.js';
 
 const paymentController = {
   createPayment: async (req, res) => {

@@ -1,5 +1,5 @@
 import express from 'express';
-import parkingLotController from "../controllers/parkingLotControllers";
+import parkingLotController from "../controllers/parkingLotControllers.js";
 const router = express.Router();
 
 //create a new parking lot

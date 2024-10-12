@@ -4,10 +4,10 @@ import cors from "cors";
 const app = express();
 
 // Import all routes components with file extensions
-import userRoutes from "./routes/UserRoute";
-import parkingLotRoutes from "./routes/ParkingLotRoutes";
-import reservationRoutes from "./routes/ReservationRoutes";
-import paymentRoutes from "./routes/PaymentRoutes";
+import userRoutes from "./routes/UserRoute.js";
+import parkingLotRoutes from "./routes/ParkingLotRoutes.js";
+import reservationRoutes from "./routes/ReservationRoutes.js";
+import paymentRoutes from "./routes/PaymentRoutes.js";
 
 // Middleware to parse JSON data
 app.use(express.json());

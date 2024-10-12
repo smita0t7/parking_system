@@ -1,11 +1,12 @@
 import express from 'express';
 const router = express.Router();
-import userController from "../controllers/userController";
+import userController from "../controllers/userController.js";
 
 import bodyParser from 'body-parser';
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended: true}));
+// Middleware to parse incoming request bodies
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 //register a new user
 router.post("/register", userController.register);

@@ -1,5 +1,5 @@
-import Reservation from '../models/Reservation';
-import ParkingLot from '../models/parkingLot';
+import Reservation from '../models/Reservation.js';
+import ParkingLot from '../models/ParkingLot.js';
 
 
 const reservationController = {
