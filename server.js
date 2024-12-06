@@ -1,45 +1,35 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-const app = express();
+import express from 'express'; // Import Express
+import mongoose from 'mongoose'; // Import Mongoose
+import {
+    getAllParkingLots,
+    getParkingLotById,
+    createParkingLot,
+    updateParkingLot,
+    deleteParkingLot,
+} from './controllers/parkingLotControllers.js'; // Import Controller Functions
 
-// Import all routes components with file extensions
-import userRoutes from "./routes/UserRoute.js";
-import parkingLotRoutes from "./routes/ParkingLotRoutes.js";
-import reservationRoutes from "./routes/ReservationRoutes.js";
-import paymentRoutes from "./routes/PaymentRoutes.js";
+const app = express(); // Create an Express App
+const PORT = 3000; // Define the Port Number
 
-// Middleware to parse JSON data
+// Middleware to Parse JSON
 app.use(express.json());
-app.use(cors({
-    origin: "*"
-}));
 
-// Connect to MongoDB function
-const connectDB = async () => {
-    try {
-        await mongoose.connect('mongodb://localhost:27017/mydatabase', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log('Connected to MongoDB');
-    } catch (err) {
-        console.error('Failed to connect to MongoDB', err);
-        process.exit(1);
-    }
-};
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/parking-system', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('MongoDB connected successfully!'))
+    .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-// Call the database connection function
-connectDB();
+// Define Routes for Parking Lots
+app.get('/parkinglots', getAllParkingLots);         // Get all parking lots
+app.get('/parkinglots/:id', getParkingLotById);     // Get a specific parking lot by ID
+app.post('/parkinglots', createParkingLot);         // Create a new parking lot
+app.put('/parkinglots/:id', updateParkingLot);      // Update a parking lot by ID
+app.delete('/parkinglots/:id', deleteParkingLot);   // Delete a parking lot by ID
 
-// API routes
-app.use("/api/users", userRoutes);
-app.use("/api/parking-lot", parkingLotRoutes);
-app.use("/api/reservations", reservationRoutes);
-app.use("/api/payments", paymentRoutes);
-
-// Start server
-const PORT = 3000;
+// Start the Server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
