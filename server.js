@@ -1,17 +1,11 @@
-import express from 'express'; // Import Express
-import mongoose from 'mongoose'; // Import Mongoose
-import {
-    getAllParkingLots,
-    getParkingLotById,
-    createParkingLot,
-    updateParkingLot,
-    deleteParkingLot,
-} from './controllers/parkingLotControllers.js'; // Import Controller Functions
+import express from 'express';
+import mongoose from 'mongoose';
+import parkingLotRoutes from './routes/parkingLotRoutes.js'; // Correct import path
 
-const app = express(); // Create an Express App
-const PORT = 3000; // Define the Port Number
+const app = express();
+const PORT = 3000;
 
-// Middleware to Parse JSON
+// Middleware to parse JSON requests
 app.use(express.json());
 
 // Connect to MongoDB
@@ -22,14 +16,15 @@ mongoose.connect('mongodb://localhost:27017/parking-system', {
     .then(() => console.log('MongoDB connected successfully!'))
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-// Define Routes for Parking Lots
-app.get('/parkinglots', getAllParkingLots);         // Get all parking lots
-app.get('/parkinglots/:id', getParkingLotById);     // Get a specific parking lot by ID
-app.post('/parkinglots', createParkingLot);         // Create a new parking lot
-app.put('/parkinglots/:id', updateParkingLot);      // Update a parking lot by ID
-app.delete('/parkinglots/:id', deleteParkingLot);   // Delete a parking lot by ID
+// Use parking lot routes
+app.use('/parkinglots', parkingLotRoutes); // Register routes
 
-// Start the Server
+// Add a route for the root path to avoid the "Cannot GET /" error
+app.get('/', (req, res) => {
+    res.send('Welcome to the Parking System API!');
+});
+
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });

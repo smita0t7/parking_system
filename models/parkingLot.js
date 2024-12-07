@@ -1,4 +1,3 @@
-// Importing any required modules (if necessary)
 import mongoose from 'mongoose';
 
 // Define the schema for a parking lot

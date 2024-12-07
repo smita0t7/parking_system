@@ -1,4 +1,4 @@
-import ParkingLot from '../models/parkingLot.js'; // Adjust the path as needed
+import ParkingLot from '../models/parkingLot.js';
 
 /**
  * Get all parking lots
