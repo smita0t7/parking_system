@@ -1,79 +1,90 @@
-// src/theme/sunset.js
+// src/theme/playfulRetro.js
 import { createTheme } from '@mui/material/styles';
 
-const sunsetColors = {
-  base: '#2d1e2f',
-  surface: '#3b273e',
-  overlay: '#4a3150',
-  muted: '#85727c',
-  subtle: '#b39ba4',
-  text: '#f4e4f7',
-  love: '#f25563',
-  gold: '#f7a856',
-  amber: '#f9d276',
-  plum: '#9d77cf',
-  violet: '#c79bf3',
-  highlightLow: '#36263a',
-  highlightMed: '#52384e',
-  highlightHigh: '#6d4d63',
+const retroColors = {
+  base: '#fdf4dc',
+  surface: '#ffefc3',
+  overlay: '#ffe29b',
+  muted: '#d4b483',
+  subtle: '#9c6644',
+  text: '#332e3c',
+  love: '#c23b22',
+  gold: '#d9a441',
+  amber: '#f6b042',
+  teal: '#49beb7',
+  pink: '#f178b6',
+  highlightLow: '#fff7e0',
+  highlightMed: '#ffebc0',
+  highlightHigh: '#ffd994',
 };
 
-const sunsetTheme = createTheme({
+const retroTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     background: {
-      default: sunsetColors.base,
-      paper: sunsetColors.surface,
+      default: retroColors.base,
+      paper: retroColors.surface,
     },
     primary: {
-      main: sunsetColors.violet,
+      main: retroColors.teal,
     },
     secondary: {
-      main: sunsetColors.plum,
+      main: retroColors.pink,
     },
     error: {
-      main: sunsetColors.love,
+      main: retroColors.love,
     },
     warning: {
-      main: sunsetColors.gold,
+      main: retroColors.gold,
     },
     info: {
-      main: sunsetColors.amber,
+      main: retroColors.amber,
     },
     success: {
-      main: sunsetColors.plum,
+      main: retroColors.teal,
     },
     text: {
-      primary: sunsetColors.text,
-      secondary: sunsetColors.subtle,
+      primary: retroColors.text,
+      secondary: retroColors.subtle,
     },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Comic Sans MS", "Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
     h2: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
     h3: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
     h4: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
     h5: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
     h6: {
-      fontFamily: '"JetBrains Mono", monospace',
+      fontFamily: '"Permanent Marker", cursive',
     },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: sunsetColors.surface,
+          backgroundColor: retroColors.overlay,
+          color: retroColors.text,
+          borderBottom: `4px solid ${retroColors.teal}`,
+        },
+      },
+    },
+    MuiFooter: {
+      styleOverrides: {
+        root: {
+          backgroundColor: retroColors.overlay,
+          color: retroColors.text,
+          borderTop: `4px solid ${retroColors.teal}`,
         },
       },
     },
@@ -81,16 +92,24 @@ const sunsetTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontWeight: 600,
+          fontWeight: 700,
+          borderRadius: '30px',
+          padding: '10px 20px',
+          background: `linear-gradient(90deg, ${retroColors.teal}, ${retroColors.pink})`,
+          color: '#fff',
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          '&:hover': {
+            background: `linear-gradient(90deg, ${retroColors.pink}, ${retroColors.teal})`,
+          },
         },
       },
     },
     MuiCssBaseline: {
       styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Comic+Sans+MS&display=swap');
       `,
     },
   },
 });
 
-export default sunsetTheme;
+export default retroTheme;
