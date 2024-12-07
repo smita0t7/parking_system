@@ -6,10 +6,10 @@ const Homepage = () => {
     return (
         <Container maxWidth ="lg" sx={{textAlign: 'center', py: 5}}>
             <Typography variant="h2" component="h1" color="primary" gutterBottom>
-                Welcome to Rental Management System 
+                Parking System Management
             </Typography>
             <Typography variant="h4" gutterBottom>
-            Manage your rentals efficiently and effectively.
+            Book your parking lots
             </Typography>
             <Box mt={4}>
         <Button 
@@ -18,7 +18,7 @@ const Homepage = () => {
           color="primary" 
           variant="contained"
         >
-          View Rooms
+          View slots
         </Button>
       </Box>
         </Container>
