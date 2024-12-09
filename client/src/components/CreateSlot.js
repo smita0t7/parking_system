@@ -5,12 +5,10 @@ import {
   TextField,
   Typography,
   Button,
-  Snackbar,
-  Alert,
-  MenuItem,
   FormControl,
   InputLabel,
   Select,
+  MenuItem,
 } from '@mui/material';
 
 const CreateSlot = () => {
@@ -19,52 +17,55 @@ const CreateSlot = () => {
   const [slot, setSlot] = useState({
     slotNumber: '',
     type: '',
-    maxCapacity: '',
-    duration: '', // Add duration field
+    duration: '',
     rentPerHour: 50, // Fixed rate per hour
     totalRent: 0, // Calculated total rent
-    status: 'Available',
     customerName: '',
     phoneNumber: '',
     vehicleNumber: '',
-    vehicleType: '',
     location: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let updatedSlot = { ...slot, [name]: value };
 
-    // Calculate total rent dynamically when duration is updated
-    if (name === 'duration') {
-      const hours = parseInt(value, 10) || 0;
-      updatedSlot.totalRent = hours * updatedSlot.rentPerHour;
+    // Validation rules
+    const validations = {
+      customerName: /^[A-Za-z ]*$/, // Allows only alphabets and spaces
+      phoneNumber: /^[0-9]*$/, // Only numbers
+      vehicleNumber: /^[A-Za-z0-9]*$/, // Alphanumeric
+      slotNumber: /^[0-9]*$/, // Numbers only
+      duration: /^[0-9]*$/, // Numbers only
+      location: /^[A-Za-z0-9 ,.-]*$/, // Alphanumeric and common punctuation
+    };
+
+    if (validations[name] && !validations[name].test(value)) {
+      return; // Reject invalid input dynamically
     }
 
-      // Show success notification
-      setNotification({
-        open: true,
-        message: 'Room created successfully!',
-        severity: 'success',
-      });
-
-
-    setSlot(updatedSlot);
+    // Update the state if validation passes
+    setSlot((prevSlot) => ({
+      ...prevSlot,
+      [name]: value,
+      totalRent: name === 'duration' ? (parseInt(value, 10) || 0) * prevSlot.rentPerHour : prevSlot.totalRent,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-    // Save data in state and redirect to the confirmation page
+    // Perform validation for required fields
+    if (!slot.customerName || !slot.phoneNumber || !slot.slotNumber || !slot.type || !slot.duration) {
+      alert("Please fill in all required fields correctly.");
+      return;
+    }
+
     navigate('/confirmedSlot', { state: { slot } });
   };
 
   const handleCancel = () => {
     navigate('/');
   };
-
-  
 
   return (
     <Box
@@ -87,35 +88,33 @@ const CreateSlot = () => {
         Create Parking Slot
       </Typography>
 
-
-      <TextField
-  fullWidth
-  label="Customer Name"
-  name="customerName"
-  variant="outlined"
-  type="text"
-  value={slot.customerName}
-  onChange={handleChange}
-  sx={{ mb: 2 }}
-  pattern={{
-    pattern: "^[A-Za-z ]+$", // Allows only letters and spaces
-    title: "Only alphabets and spaces are allowed",
-  }}
-/>
-
-        
-
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="Customer Name"
+          name="customerName"
+          variant="outlined"
+          type="text"
+          value={slot.customerName}
+          onChange={handleChange}
+          error={!/^[A-Za-z ]*$/.test(slot.customerName)}
+          helperText={!/^[A-Za-z ]*$/.test(slot.customerName) ? "Only alphabets and spaces are allowed" : ""}
+          sx={{ mb: 2 }}
+        />
 
         <TextField
           fullWidth
           label="Phone Number"
           name="phoneNumber"
           variant="outlined"
-          type='tel'
+          type="tel"
           value={slot.phoneNumber}
           onChange={handleChange}
+          error={!/^[0-9]*$/.test(slot.phoneNumber)}
+          helperText={!/^[0-9]*$/.test(slot.phoneNumber) ? "Only numbers are allowed" : ""}
           sx={{ mb: 2 }}
-          />
+        />
+
         <TextField
           fullWidth
           label="Vehicle Number"
@@ -123,10 +122,11 @@ const CreateSlot = () => {
           variant="outlined"
           value={slot.vehicleNumber}
           onChange={handleChange}
+          error={!/^[A-Za-z0-9]*$/.test(slot.vehicleNumber)}
+          helperText={!/^[A-Za-z0-9]*$/.test(slot.vehicleNumber) ? "Only alphanumeric characters are allowed" : ""}
           sx={{ mb: 2 }}
         />
 
-        {/* Location Details */}
         <TextField
           fullWidth
           label="Location/Area Name"
@@ -134,26 +134,26 @@ const CreateSlot = () => {
           variant="outlined"
           value={slot.location}
           onChange={handleChange}
-          required
+          error={!/^[A-Za-z0-9 ,.-]*$/.test(slot.location)}
+          helperText={!/^[A-Za-z0-9 ,.-]*$/.test(slot.location) ? "Only valid location names are allowed" : ""}
           sx={{ mb: 2 }}
         />
 
-<form onSubmit={handleSubmit}>
-        {/* Slot Details */}
         <TextField
           fullWidth
           label="Slot Number"
           name="slotNumber"
           variant="outlined"
-          type='number'
+          type="number"
           value={slot.slotNumber}
           onChange={handleChange}
-          required
+          error={!/^[0-9]*$/.test(slot.slotNumber)}
+          helperText={!/^[0-9]*$/.test(slot.slotNumber) ? "Only numbers are allowed" : ""}
           sx={{ mb: 2 }}
         />
 
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel>Vehicle Type </InputLabel>
+          <InputLabel>Vehicle Type</InputLabel>
           <Select
             name="type"
             value={slot.type}
@@ -167,7 +167,6 @@ const CreateSlot = () => {
           </Select>
         </FormControl>
 
-        {/* Replace rentPerHour with duration */}
         <TextField
           fullWidth
           label="Duration (in hours)"
@@ -176,16 +175,16 @@ const CreateSlot = () => {
           type="number"
           value={slot.duration}
           onChange={handleChange}
+          error={!/^[0-9]*$/.test(slot.duration)}
+          helperText={!/^[0-9]*$/.test(slot.duration) ? "Only numbers are allowed" : ""}
           required
           sx={{ mb: 2 }}
         />
 
-        {/* Display total rent dynamically */}
         <Typography variant="body1" sx={{ mb: 2 }}>
           Total Rent: {slot.totalRent} Rupees
         </Typography>
 
-        {/* Buttons */}
         <Box
           sx={{
             display: 'flex',
