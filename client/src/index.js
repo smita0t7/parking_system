@@ -11,11 +11,11 @@ root.render(
   <Router>  {/* Wrap the entire app with Router here */}
     <App />
    <React.StrictMode>
-    <ThemeProvider theme={blueLagoonTheme}>
+    <ThemeProvider theme={sunsetTheme}>
       <CssBaseline /> {/* Ensures baseline styling (reset) */}
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <App />
-      </BrowserRouter>
+      </BrowserRouter> */}
     </ThemeProvider>
   </React.StrictMode>
   </Router>
