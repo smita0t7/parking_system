@@ -14,7 +14,7 @@ const Homepage = () => {
             <Box mt={4}>
         <Button 
           component={Link} 
-          to="/parkinglot-list" 
+          to="/CreateSlotList" 
           color="primary" 
           variant="contained"
         >

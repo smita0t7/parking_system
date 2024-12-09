@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
 
-
 const ConfirmedSlot = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -12,6 +11,9 @@ const ConfirmedSlot = () => {
   }
 
   const { slot } = state;
+
+  // Filter out empty or undefined fields
+  const filteredSlotDetails = Object.entries(slot).filter(([key, value]) => value !== '' && value !== null && value !== undefined);
 
   return (
     <Box
@@ -35,7 +37,7 @@ const ConfirmedSlot = () => {
       </Typography>
 
       <List>
-        {Object.entries(slot).map(([key, value]) => (
+        {filteredSlotDetails.map(([key, value]) => (
           <ListItem key={key}>
             <ListItemText primary={key} secondary={Array.isArray(value) ? value.join(', ') : value} />
           </ListItem>
