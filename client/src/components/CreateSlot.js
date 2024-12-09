@@ -41,6 +41,14 @@ const CreateSlot = () => {
       updatedSlot.totalRent = hours * updatedSlot.rentPerHour;
     }
 
+      // Show success notification
+      setNotification({
+        open: true,
+        message: 'Room created successfully!',
+        severity: 'success',
+      });
+
+
     setSlot(updatedSlot);
   };
 
