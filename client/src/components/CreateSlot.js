@@ -28,7 +28,9 @@ const CreateSlot = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [warning, setWarning] = useState('');
 
+  // Validate fields
   const validateField = (name, value) => {
     let error = '';
     if (name === 'customerName' && !/^[A-Za-z ]*$/.test(value)) {
@@ -39,10 +41,16 @@ const CreateSlot = () => {
       } else if (value.length > 10) {
         error = 'You cannot enter more than 10 digits';
       }
+    } else if (name === 'vehicleNumber') {
+      const vehicleNumberRegex = /^[A-Z]{2} [A-Z]{2} [A-Z]{2} \d{4}$/;
+      if (value && !vehicleNumberRegex.test(value)) {
+        error = 'Enter valid vehicle number (e.g., AB VA XX 1234)';
+      }
     }
     return error;
   };
 
+  // Handle input change and validate
   const handleChange = (e) => {
     const { name, value } = e.target;
     const error = validateField(name, value);
@@ -65,13 +73,30 @@ const CreateSlot = () => {
     }
   };
 
+  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Check if all fields are filled before submitting
+    if (
+      !slot.customerName ||
+      !slot.phoneNumber ||
+      !slot.vehicleNumber ||
+      !slot.vehicleType ||
+      !slot.duration
+    ) {
+      setWarning('Every area should be filled before booking the slot');
+      return;
+    }
+
+    // Clear warning if all fields are valid
+    setWarning('');
+    
     // Save data in state and redirect to the confirmation page
     navigate('/confirmedSlot', { state: { slot } });
   };
 
+  // Handle cancel button click
   const handleCancel = () => {
     navigate('/');
   };
@@ -133,8 +158,17 @@ const CreateSlot = () => {
         variant="outlined"
         value={slot.vehicleNumber}
         onChange={handleChange}
+        error={Boolean(errors.vehicleNumber)}
+        helperText={errors.vehicleNumber}
         sx={{ mb: 2 }}
       />
+
+      {/* Warning Message */}
+      {warning && (
+        <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+          {warning}
+        </Typography>
+      )}
 
       <form onSubmit={handleSubmit}>
         {/* Slot Number Display (Generated Automatically) */}
@@ -149,8 +183,8 @@ const CreateSlot = () => {
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel>Vehicle Type</InputLabel>
           <Select
-            name="type"
-            value={slot.type}
+            name="vehicleType"
+            value={slot.vehicleType}
             onChange={handleChange}
             required
             sx={{ textAlign: 'left' }}
