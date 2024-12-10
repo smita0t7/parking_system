@@ -2,8 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import connectDB from './config/db';
 import parkingLotRoutes from './routes/parkingLotRoutes.js'; // Correct import path
+import parkingLot from './model/parkingLot';
 import cors from 'cors';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config({ path: "./config.env" });
 
 connectDB();
