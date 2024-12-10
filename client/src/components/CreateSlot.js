@@ -41,13 +41,11 @@ const CreateSlot = () => {
       } else if (value.length > 10) {
         error = 'You cannot enter more than 10 digits';
       }
-    } else if (name === 'vehicleNumber') {
-      // Regex for vehicle number: exactly 13 characters (including spaces)
-      const vehicleNumberRegex = /^[A-Z]{4} [A-Z]{4} \d{4}$/;
-      if (value && !vehicleNumberRegex.test(value)) {
-        error = 'Enter a valid vehicle number (e.g., ABCD EFGH 1234)';
-      }
-    }
+    } 
+    
+    
+    
+    
     return error;
   };
 
@@ -159,8 +157,6 @@ const CreateSlot = () => {
         variant="outlined"
         value={slot.vehicleNumber}
         onChange={handleChange}
-        error={Boolean(errors.vehicleNumber)}
-        helperText={errors.vehicleNumber}
         sx={{ mb: 2 }}
       />
 
