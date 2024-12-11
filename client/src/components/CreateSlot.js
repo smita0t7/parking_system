@@ -102,142 +102,145 @@ const CreateSlot = () => {
 
   return (
     <Box
+  sx={{
+    maxWidth: 700,
+    margin: 'auto',
+    padding: 4,
+    borderRadius: 2,
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'white',
+    mt: 3,  // Space between Navbar and Create Form section
+    mb: 3,  // Space between Footer and Create Form section
+  }}
+>
+  <Typography
+    variant="h4"
+    component="h1"
+    textAlign="center"
+    mb={3}
+    color="primary"
+  >
+    Create Parking Slot
+  </Typography>
+
+  {/* Customer Name */}
+  <TextField
+    fullWidth
+    label="Customer Name"
+    name="customerName"
+    variant="outlined"
+    type="text"
+    value={slot.customerName}
+    onChange={handleChange}
+    error={Boolean(errors.customerName)}
+    helperText={errors.customerName}
+    sx={{ mb: 2 }}
+  />
+
+  {/* Phone Number */}
+  <TextField
+    fullWidth
+    label="Phone Number"
+    name="phoneNumber"
+    variant="outlined"
+    type="tel"
+    value={slot.phoneNumber}
+    onChange={handleChange}
+    error={Boolean(errors.phoneNumber)}
+    helperText={errors.phoneNumber}
+    sx={{ mb: 2 }}
+  />
+
+  {/* Vehicle Number */}
+  <TextField
+    fullWidth
+    label="Vehicle Number"
+    name="vehicleNumber"
+    variant="outlined"
+    value={slot.vehicleNumber}
+    onChange={handleChange}
+    sx={{ mb: 2 }}
+  />
+
+  {/* Warning Message */}
+  {warning && (
+    <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+      {warning}
+    </Typography>
+  )}
+
+  <form onSubmit={handleSubmit}>
+    {/* Slot Number Display (Generated Automatically) */}
+    <Typography
+      variant="body1"
+      sx={{ mb: 2, fontWeight: 'bold', color: 'gray' }}
+    >
+      Slot Number: {slot.slotNumber}
+    </Typography>
+
+    {/* Vehicle Type */}
+    <FormControl fullWidth sx={{ mb: 2 }}>
+      <InputLabel>Vehicle Type</InputLabel>
+      <Select
+        name="vehicleType"
+        value={slot.vehicleType}
+        onChange={handleChange}
+        required
+        sx={{ textAlign: 'left' }}
+      >
+        <MenuItem value="Car">Car</MenuItem>
+        <MenuItem value="Bike">Bike</MenuItem>
+        <MenuItem value="Truck">Truck</MenuItem>
+        <MenuItem value="EV Charging">EV Charging</MenuItem>
+      </Select>
+    </FormControl>
+
+    {/* Duration */}
+    <TextField
+      fullWidth
+      label="Duration (in hours)"
+      name="duration"
+      variant="outlined"
+      type="number"
+      value={slot.duration}
+      onChange={handleChange}
+      required
+      sx={{ mb: 2 }}
+    />
+
+    {/* Display total rent dynamically */}
+    <Typography variant="body1" sx={{ mb: 2 }}>
+      Total Rent: {slot.totalRent} Rupees
+    </Typography>
+
+    {/* Buttons */}
+    <Box
       sx={{
-        maxWidth: 700,
-        margin: 'auto',
-        padding: 4,
-        borderRadius: 2,
-        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-        backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'space-between',
+        mt: 3,
       }}
     >
-      <Typography
-        variant="h4"
-        component="h1"
-        textAlign="center"
-        mb={3}
+      <Button
+        variant="contained"
         color="primary"
+        type="submit"
+        sx={{ width: '48%' }}
       >
-        Create Parking Slot
-      </Typography>
-
-      {/* Customer Name */}
-      <TextField
-        fullWidth
-        label="Customer Name"
-        name="customerName"
+        Book Slot
+      </Button>
+      <Button
         variant="outlined"
-        type="text"
-        value={slot.customerName}
-        onChange={handleChange}
-        error={Boolean(errors.customerName)}
-        helperText={errors.customerName}
-        sx={{ mb: 2 }}
-      />
-
-      {/* Phone Number */}
-      <TextField
-        fullWidth
-        label="Phone Number"
-        name="phoneNumber"
-        variant="outlined"
-        type="tel"
-        value={slot.phoneNumber}
-        onChange={handleChange}
-        error={Boolean(errors.phoneNumber)}
-        helperText={errors.phoneNumber}
-        sx={{ mb: 2 }}
-      />
-
-      {/* Vehicle Number */}
-      <TextField
-        fullWidth
-        label="Vehicle Number"
-        name="vehicleNumber"
-        variant="outlined"
-        value={slot.vehicleNumber}
-        onChange={handleChange}
-        sx={{ mb: 2 }}
-      />
-
-      {/* Warning Message */}
-      {warning && (
-        <Typography variant="body2" color="error" sx={{ mb: 2 }}>
-          {warning}
-        </Typography>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        {/* Slot Number Display (Generated Automatically) */}
-        <Typography
-          variant="body1"
-          sx={{ mb: 2, fontWeight: 'bold', color: 'gray' }}
-        >
-          Slot Number: {slot.slotNumber}
-        </Typography>
-
-        {/* Vehicle Type */}
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel>Vehicle Type</InputLabel>
-          <Select
-            name="vehicleType"
-            value={slot.vehicleType}
-            onChange={handleChange}
-            required
-            sx={{ textAlign: 'left' }}
-          >
-            <MenuItem value="Car">Car</MenuItem>
-            <MenuItem value="Bike">Bike</MenuItem>
-            <MenuItem value="Truck">Truck</MenuItem>
-            <MenuItem value="EV Charging">EV Charging</MenuItem>
-          </Select>
-        </FormControl>
-
-        {/* Duration */}
-        <TextField
-          fullWidth
-          label="Duration (in hours)"
-          name="duration"
-          variant="outlined"
-          type="number"
-          value={slot.duration}
-          onChange={handleChange}
-          required
-          sx={{ mb: 2 }}
-        />
-
-        {/* Display total rent dynamically */}
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Total Rent: {slot.totalRent} Rupees
-        </Typography>
-
-        {/* Buttons */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            mt: 3,
-          }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ width: '48%' }}
-          >
-            Book Slot
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleCancel}
-            sx={{ width: '48%' }}
-          >
-            Cancel
-          </Button>
-        </Box>
-      </form>
+        color="secondary"
+        onClick={handleCancel}
+        sx={{ width: '48%' }}
+      >
+        Cancel
+      </Button>
     </Box>
+  </form>
+</Box>
+
   );
 };
 

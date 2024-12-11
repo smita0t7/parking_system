@@ -24,6 +24,8 @@ const ConfirmedSlot = () => {
         borderRadius: 2,
         boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
         backgroundColor: 'white',
+        mt: 3,  // Space between Navbar and Confirmed Slot section
+        mb: 3,  // Space between Footer and Confirmed Slot section
       }}
     >
       <Typography

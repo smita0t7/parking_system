@@ -15,6 +15,8 @@ const Homepage = () => {
                 boxShadow: 3,
                 position: 'relative',
                 zIndex: 1,
+                mt: 3, // Space between Navbar and Section
+                mb: 3, // Space between Footer and Section
             }}
         >
             {/* Title with animation */}
