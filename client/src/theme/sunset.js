@@ -1,76 +1,75 @@
-// src/theme/playfulRetroResponsive.js
+// src/theme/newFreshTheme.js
 import { createTheme } from '@mui/material/styles';
 
-const retroColors = {
-  base: '#fdf4dc',
-  surface: '#ffefc3',
-  overlay: '#ffe29b',
-  muted: '#d4b483',
-  subtle: '#9c6644',
-  text: '#332e3c',
-  love: '#c23b22',
-  gold: '#d9a441',
-  amber: '#f6b042',
-  teal: '#49beb7',
-  pink: '#f178b6',
-  highlightLow: '#fff7e0',
-  highlightMed: '#ffebc0',
-  highlightHigh: '#ffd994',
+const modernColors = {
+  base: '#f4f4f9',
+  surface: '#c0c0d0',
+  overlay: '#c0c0d0',
+  muted: '#9090a0',
+  subtle: '#606070',
+  text: '#303030',
+  primary: '#005f73',
+  secondary: '#0a9396',
+  error: '#ae2012',
+  warning: '#bb3e03',
+  info: '#3a86ff',
+  success: '#3d5a80',
+  highlight: '#edf2f4',
 };
 
-const retroTheme = createTheme({
+const newFreshTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: retroColors.base,
-      paper: retroColors.surface,
+      default: modernColors.base,
+      paper: modernColors.surface,
     },
     primary: {
-      main: retroColors.teal,
+      main: modernColors.primary,
     },
     secondary: {
-      main: retroColors.pink,
+      main: modernColors.secondary,
     },
     error: {
-      main: retroColors.love,
+      main: modernColors.error,
     },
     warning: {
-      main: retroColors.gold,
+      main: modernColors.warning,
     },
     info: {
-      main: retroColors.amber,
+      main: modernColors.info,
     },
     success: {
-      main: retroColors.teal,
+      main: modernColors.success,
     },
     text: {
-      primary: retroColors.text,
-      secondary: retroColors.subtle,
+      primary: modernColors.text,
+      secondary: modernColors.subtle,
     },
   },
   typography: {
-    fontFamily: 'Poppins, Roboto, Arial, sans-serif',
+    fontFamily: 'Nunito, Arial, sans-serif',
     h1: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 600,
+      fontFamily: 'Nunito, sans-serif',
+      fontWeight: 700,
       fontSize: '2.5rem',
     },
     h2: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 500,
+      fontFamily: 'Nunito, sans-serif',
+      fontWeight: 600,
       fontSize: '2rem',
     },
     h3: {
-      fontFamily: 'Poppins, sans-serif',
+      fontFamily: 'Nunito, sans-serif',
       fontWeight: 500,
       fontSize: '1.75rem',
     },
     body1: {
-      fontFamily: 'Roboto Mono, monospace',
+      fontFamily: 'Nunito, sans-serif',
       fontSize: '1rem',
     },
     body2: {
-      fontFamily: 'Roboto Mono, monospace',
+      fontFamily: 'Nunito, sans-serif',
       fontSize: '0.875rem',
     },
   },
@@ -78,9 +77,18 @@ const retroTheme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: retroColors.overlay,
-          color: retroColors.text,
-          borderBottom: `4px solid ${retroColors.teal}`,
+          backgroundColor: modernColors.overlay,
+          color: modernColors.text,
+          borderBottom: `3px solid ${modernColors.primary}`,
+        },
+      },
+    },
+    MuiFooter: {
+      styleOverrides: {
+        root: {
+          backgroundColor: modernColors.overlay,
+          color: modernColors.text,
+          borderTop: `3px solid ${modernColors.primary}`,
         },
       },
     },
@@ -88,43 +96,41 @@ const retroTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'uppercase',
-          fontWeight: 700,
-          borderRadius: '10px',
-          padding: '8px 16px',
-          background: `linear-gradient(45deg, ${retroColors.teal}, ${retroColors.pink})`,
-          color: '#fff',
-          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+          fontWeight: 600,
+          borderRadius: '6px',
+          padding: '10px 18px',
+          backgroundColor: modernColors.primary,
+          color: '#ffffff',
           '&:hover': {
-            background: `linear-gradient(45deg, ${retroColors.pink}, ${retroColors.teal})`,
+            backgroundColor: modernColors.secondary,
           },
         },
       },
     },
     MuiCssBaseline: {
       styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 
         body {
           margin: 0;
           padding: 0;
-          background-color: ${retroColors.base};
-          color: ${retroColors.text};
-          font-family: 'Poppins', sans-serif;
-          line-height: 1.5;
+          background-color: ${modernColors.base};
+          color: ${modernColors.text};
+          font-family: 'Nunito', sans-serif;
+          line-height: 1.8;
         }
       `,
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          padding: '16px',
-          borderRadius: '8px',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          padding: '24px',
+          borderRadius: '10px',
+          boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.15)',
         },
       },
     },
   },
 });
 
-export default retroTheme;
-
+export default newFreshTheme;
