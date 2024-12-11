@@ -1,4 +1,4 @@
-// src/theme/playfulRetro.js
+// src/theme/playfulRetroResponsive.js
 import { createTheme } from '@mui/material/styles';
 
 const retroColors = {
@@ -17,7 +17,7 @@ const retroColors = {
   highlightMed: '#ffebc0',
   highlightHigh: '#ffd994',
 };
-//it need to change...wait some time i wll be back
+
 const retroTheme = createTheme({
   palette: {
     mode: 'light',
@@ -49,24 +49,29 @@ const retroTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Comic Sans MS", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: 'Poppins, Roboto, Arial, sans-serif',
     h1: {
-      fontFamily: '"Permanent Marker", cursive',
+      fontFamily: 'Poppins, sans-serif',
+      fontWeight: 600,
+      fontSize: '2.5rem',
     },
     h2: {
-      fontFamily: '"Permanent Marker", cursive',
+      fontFamily: 'Poppins, sans-serif',
+      fontWeight: 500,
+      fontSize: '2rem',
     },
     h3: {
-      fontFamily: '"Permanent Marker", cursive',
+      fontFamily: 'Poppins, sans-serif',
+      fontWeight: 500,
+      fontSize: '1.75rem',
     },
-    h4: {
-      fontFamily: '"Permanent Marker", cursive',
+    body1: {
+      fontFamily: 'Roboto Mono, monospace',
+      fontSize: '1rem',
     },
-    h5: {
-      fontFamily: '"Permanent Marker", cursive',
-    },
-    h6: {
-      fontFamily: '"Permanent Marker", cursive',
+    body2: {
+      fontFamily: 'Roboto Mono, monospace',
+      fontSize: '0.875rem',
     },
   },
   components: {
@@ -79,37 +84,47 @@ const retroTheme = createTheme({
         },
       },
     },
-    MuiFooter: {
-      styleOverrides: {
-        root: {
-          backgroundColor: retroColors.overlay,
-          color: retroColors.text,
-          borderTop: `4px solid ${retroColors.teal}`,
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: 'uppercase',
           fontWeight: 700,
-          borderRadius: '30px',
-          padding: '10px 20px',
-          background: `linear-gradient(90deg, ${retroColors.teal}, ${retroColors.pink})`,
+          borderRadius: '10px',
+          padding: '8px 16px',
+          background: `linear-gradient(45deg, ${retroColors.teal}, ${retroColors.pink})`,
           color: '#fff',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
           '&:hover': {
-            background: `linear-gradient(90deg, ${retroColors.pink}, ${retroColors.teal})`,
+            background: `linear-gradient(45deg, ${retroColors.pink}, ${retroColors.teal})`,
           },
         },
       },
     },
     MuiCssBaseline: {
       styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Comic+Sans+MS&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto+Mono&display=swap');
+
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: ${retroColors.base};
+          color: ${retroColors.text};
+          font-family: 'Poppins', sans-serif;
+          line-height: 1.5;
+        }
       `,
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: '16px',
+          borderRadius: '8px',
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+        },
+      },
     },
   },
 });
 
 export default retroTheme;
+
