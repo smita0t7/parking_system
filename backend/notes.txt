@@ -9,5 +9,7 @@
 -   cors : cross origin (whih origin can access our api)
 -   body-parser : parse body of request (used when we take user input)
 -   nodemon : make run our server automatic.
+-   framer-motion in frontend : We'll use the framer-motion library for smooth animations.
+-   @svgr/webpack : svg loader needed in frontend.
 
 -   To be continued bro.
