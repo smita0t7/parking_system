@@ -44,14 +44,21 @@ const ParkingDetailsContent = () => {
       <Typography variant="h4" gutterBottom>
         Parking Details
       </Typography>
-      <Typography variant="body1" paragraph>
-        {details.description}
-      </Typography>
-      <SyntaxHighlighter style={solarizedlight} language="json" PreTag="div">
-        {JSON.stringify(details, null, 2)}
-      </SyntaxHighlighter>
+      {details.description ? (
+        <>
+          <Typography variant="body1" paragraph>
+            {details.description}
+          </Typography>
+          <SyntaxHighlighter style={solarizedlight} language="json" PreTag="div">
+            {JSON.stringify(details, null, 2)}
+          </SyntaxHighlighter>
+        </>
+      ) : (
+        <Typography variant="body1">No details available for this parking slot.</Typography>
+      )}
     </Box>
   );
+  
 };
 
 const DetailPage = () => {

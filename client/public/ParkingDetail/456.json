@@ -1,0 +1,8 @@
+{
+    "id": "456",
+    "description": "This parking slot is reserved for VIP customers.",
+    "location": "Sector 22, Block A",
+    "capacity": 20,
+    "status": "Reserved"
+  }
+  
