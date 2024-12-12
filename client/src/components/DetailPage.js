@@ -25,7 +25,6 @@ const ParkingDetailsContent = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error('Error loading parking details:', error);
         setError(error.message);
         setIsLoading(false);
       });
@@ -58,7 +57,6 @@ const ParkingDetailsContent = () => {
       )}
     </Box>
   );
-  
 };
 
 const DetailPage = () => {

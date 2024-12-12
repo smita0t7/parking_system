@@ -59,6 +59,12 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Parking System API!');
 });
 
+app.get('/details/:id', (req, res) => {
+    const { id } = req.params;
+    // Example response
+    res.json({ id, description: `Details for parking ID ${id}` });
+  });
+  
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);

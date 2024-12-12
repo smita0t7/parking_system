@@ -3,6 +3,6 @@
     "description": "This is the default parking slot information.",
     "location": "Not specified",
     "capacity": 0,
-    "status": "Unavailable"
+    "status": "available"
   }
   
