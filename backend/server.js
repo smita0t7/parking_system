@@ -45,7 +45,7 @@ dotenv.config({ path: "./config.env" });
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Use environment variable or fallback to 3000
+const PORT = process.env.PORT || 5000; // Use environment variable or fallback to 3000
 
 // Middleware
 app.use(express.json()); // Parse JSON requests
