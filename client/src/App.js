@@ -7,7 +7,7 @@ import sunsetTheme from './theme/sunset';
 import CreateSlot from './components/CreateSlot';
 
 import ConfirmedSlot from './components/ConfirmedSlot';
-import DetailPage from './components/DetailPage';
+//import DetailPage from './components/DetailPage';
 
 
 import Navbar from './components/Navbar';
@@ -43,7 +43,7 @@ const App = () => {
             {/* <Route path="/about-us" element={<AboutUs />} /> */}
             {/* <Route path="/show-rooms" element={<ShowRooms />} /> */}
             {/* <Route path="/create-room" element={<CreateRoom />} /> */}
-            <Route path="/details/*" element={<DetailPage />} />
+            {/* <Route path="/details/*" element={<DetailPage />} /> */}
           </Routes>
         </Box>
 
