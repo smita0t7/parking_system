@@ -1,0 +1,27 @@
+[
+    {
+      "id": "1",
+      "name": "Downtown Lot",
+      "location": "123 Main St",
+      "capacity": 50,
+      "availableSpaces": 20,
+      "description": "A convenient parking lot located downtown."
+    },
+    {
+      "id": "2",
+      "name": "Airport Lot",
+      "location": "456 Airport Rd",
+      "capacity": 200,
+      "availableSpaces": 150,
+      "description": "Large parking lot near the airport."
+    },
+    {
+      "id": "3",
+      "name": "Mall Parking",
+      "location": "789 Shopping Blvd",
+      "capacity": 100,
+      "availableSpaces": 60,
+      "description": "Parking for the shopping mall."
+    }
+  ]
+  
