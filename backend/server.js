@@ -45,6 +45,7 @@ import mongoose from 'mongoose';
 import connectDB from './config/db.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
+const path = require('path');
 
 // Configure environment variables
 dotenv.config({ path: './config.env' });
@@ -93,6 +94,18 @@ app.get('/details/:id', (req, res) => {
     res.status(404).json({ message: `Parking ID ${id} not found` });
   }
 });
+
+// SERVE STATIC FILES
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+    res.sendFile(
+        path.join(__dirname, "./client/build/index.html"),
+        function (err) {
+            res.status(500).send(err);
+        }
+    );
+});
+
 
 // Handle invalid routes
 app.use((req, res) => {
