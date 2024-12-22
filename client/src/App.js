@@ -38,7 +38,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/createSlotList" element={<CreateSlot />} />
-            <Route path="/confirmedSlot" element={<ConfirmedSlot />} />
+            <Route path="/ConfirmedSlot" element={<ConfirmedSlot />} />
             {/* Uncomment and add these routes as needed */}
             {/* <Route path="/about-us" element={<AboutUs />} /> */}
             {/* <Route path="/show-rooms" element={<ShowRooms />} /> */}
