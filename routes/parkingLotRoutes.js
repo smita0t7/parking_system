@@ -3,7 +3,7 @@ import * as parkingLotController from '../controllers/parkingLotControllers.js';
 const router = express.Router();
 
 // Create a new parking lot
-router.post("/create", parkingLotController.createParkingLot);
+router.post("/lots", parkingLotController.createParkingLot);
 
 // Get all parking lots
 router.get("/all", parkingLotController.getAllParkingLots);

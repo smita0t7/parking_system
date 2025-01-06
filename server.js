@@ -161,7 +161,7 @@ app.get('/', (req, res) => {
 });
 
 // Fetch all parking lot details
-app.get('/parkinglots', (req, res) => {
+app.get('/api', (req, res) => {
   res.json(sampleData);
 });
 
