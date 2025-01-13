@@ -6,7 +6,7 @@
   "scripts": {
      "start": "node -r dotenv/config server.js",
     "server": "node server.js",
-    "prod":"cd client && npm run build && cd .. && npm server.js",
+    "prod": "cd client && npm run build && cd .. && npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
