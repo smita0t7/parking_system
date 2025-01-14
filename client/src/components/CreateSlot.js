@@ -45,7 +45,7 @@ const CreateSlot = () => {
         }
 
         try {
-            await axios.post('https://parking-system-j82e.onrender.com/api/lots', slot);
+            await axios.post('https://parkingsystem-8xdu.onrender.com/api/lots', slot);
             alert('Slot created successfully!');
             setSlot({
                 slotNumber: Math.floor(Math.random() * 1000) + 1,

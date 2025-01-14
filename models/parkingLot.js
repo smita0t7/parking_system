@@ -2,25 +2,39 @@ import mongoose from 'mongoose';
 
 // Define the schema for a parking lot
 const parkingLotSchema = new mongoose.Schema({
-    name: {
+    customerName: {
         type: String,
         required: true,
     },
-    location: {
+    phoneNumber: {
         type: String,
         required: true,
     },
-    capacity: {
+    vehicleNumber: {
+        type: String,
+        required: true,
+    },
+    vehicleType: {
+        type: String,
+        required: true,
+    },
+    duration: {
         type: Number,
         required: true,
     },
-    occupiedSpots: {
+    rentPerHour: {
         type: Number,
-        default: 0,
+        default: 50, // Default rent per hour
     },
-    hourlyRate: {
+    totalRent: {
         type: Number,
-        required: true,
+        default: 0, // Calculated based on duration and rentPerHour
+    },
+    arrivalTime: {
+        type: String,
+    },
+    bookingDate: {
+        type: Date,
     },
     createdAt: {
         type: Date,
@@ -28,27 +42,9 @@ const parkingLotSchema = new mongoose.Schema({
     },
 });
 
-// Add a method to check availability
-parkingLotSchema.methods.checkAvailability = function () {
-    return this.capacity > this.occupiedSpots;
-};
-
-// Add a method to park a car
-parkingLotSchema.methods.parkCar = function () {
-    if (this.checkAvailability()) {
-        this.occupiedSpots += 1;
-        return true;
-    }
-    return false;
-};
-
-// Add a method to leave a car spot
-parkingLotSchema.methods.leaveCar = function () {
-    if (this.occupiedSpots > 0) {
-        this.occupiedSpots -= 1;
-        return true;
-    }
-    return false;
+// Add a method to calculate the total rent based on duration and rent per hour
+parkingLotSchema.methods.calculateTotalRent = function () {
+    this.totalRent = this.duration * this.rentPerHour;
 };
 
 // Export the ParkingLot model

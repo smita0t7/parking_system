@@ -1,74 +1,95 @@
-import ParkingLot from '../models/parkingLot.js';
+import ParkingLot from '../models/parkingLot.js'; // Import the ParkingLot model
 
-/**
- * Get all parking lots
- */
-export const getAllParkingLots = async (req, res) => {
+// Create a new parking slot
+export const createSlot = async (req, res) => {
     try {
-        const parkingLots = await ParkingLot.find();
-        res.status(200).json(parkingLots);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
 
-/**
- * Get a single parking lot by ID
- */
-export const getParkingLotById = async (req, res) => {
-    try {
-        const parkingLot = await ParkingLot.findById(req.params.id);
-        if (!parkingLot) {
-            return res.status(404).json({ error: 'Parking lot not found' });
-        }
-        res.status(200).json(parkingLot);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+        const rentPerHour = 50; // Default rent per hour
+        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
 
-/**
- * Create a new parking lot
- */
-export const createParkingLot = async (req, res) => {
-    try {
-        const newParkingLot = new ParkingLot(req.body);
-        await newParkingLot.save();
-        res.status(201).json(newParkingLot);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
-/**
- * Update a parking lot by ID
- */
-export const updateParkingLot = async (req, res) => {
-    try {
-        const updatedParkingLot = await ParkingLot.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
+        const newSlot = new ParkingLot({
+            customerName,
+            phoneNumber,
+            vehicleNumber,
+            vehicleType,
+            duration,
+            rentPerHour,
+            totalRent,
+            arrivalTime: arrivalTime || null,
+            bookingDate: bookingDate ? new Date(bookingDate) : null,
         });
-        if (!updatedParkingLot) {
-            return res.status(404).json({ error: 'Parking lot not found' });
-        }
-        res.status(200).json(updatedParkingLot);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+
+        const savedSlot = await newSlot.save();
+        res.status(201).json(savedSlot); // Return the newly created slot
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 };
 
-/**
- * Delete a parking lot by ID
- */
-export const deleteParkingLot = async (req, res) => {
+// Get all parking slots
+export const getAllSlots = async (req, res) => {
     try {
-        const deletedParkingLot = await ParkingLot.findByIdAndDelete(req.params.id);
-        if (!deletedParkingLot) {
-            return res.status(404).json({ error: 'Parking lot not found' });
-        }
-        res.status(200).json({ message: 'Parking lot deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        const allSlots = await ParkingLot.find();
+        res.json(allSlots); // Return all parking slots
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Get a parking slot by ID
+export const getSlotById = async (req, res) => {
+    try {
+        const slot = await ParkingLot.findById(req.params.id);
+        if (!slot) return res.status(404).json({ error: 'Slot not found' });
+        res.json(slot); // Return the slot by ID
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Update a parking slot by ID
+export const updateSlot = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
+
+        const rentPerHour = 50; // Default rent per hour
+        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
+
+        const updatedSlot = await ParkingLot.findByIdAndUpdate(
+            id,
+            {
+                vehicleType,
+                customerName,
+                phoneNumber,
+                vehicleNumber,
+                duration,
+                rentPerHour,
+                totalRent,
+                arrivalTime,
+                bookingDate,
+            },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedSlot) return res.status(404).json({ error: 'Slot not found' });
+        res.json(updatedSlot); // Return the updated slot
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Delete a parking slot by ID
+export const deleteSlot = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedSlot = await ParkingLot.findByIdAndDelete(id);
+
+        if (!deletedSlot) return res.status(404).json({ error: 'Slot not found' });
+
+        res.json({ message: 'Slot deleted successfully' }); // Return success message
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 };

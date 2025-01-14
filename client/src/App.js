@@ -5,11 +5,11 @@ import { ThemeModeProvider } from './components/ThemeModeProvider';
 import { SnackbarProvider } from 'notistack';
 import { CssBaseline, Box, Container } from '@mui/material';
 
-import HomePage from './components/Homepage';
+import HomePage from './components/HomePage';
 import SlotList from './components/SlotList';  // List of slots
 import SlotDetail from './components/DetailsSlot';  // Detail of a slot
 import SlotAdd from './components/CreateSlot';  // Add a new slot
-import SlotEdit from './components/UpdateLot';  // Edit a slot
+import SlotEdit from './components/UpdateSlot';  // Edit a slot
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import ExportPage from './components/ExportPage';

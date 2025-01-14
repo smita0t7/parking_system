@@ -2,7 +2,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-
 const Footer = () => (
   <Box 
     component="footer" 
@@ -19,7 +18,7 @@ const Footer = () => (
       Built with ❤️ 
     </Typography>
     <Typography variant="body2" sx={{ mt: 2 }}>
-      © {new Date().getFullYear()} Smita Sriya | All Rights Reserved
+      © {new Date().getFullYear()} Alibha Rani Pradhan | All Rights Reserved
     </Typography>
   </Box>
 );
