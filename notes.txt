@@ -13,3 +13,5 @@
 -   @svgr/webpack : svg loader needed in frontend.
 
 -   To be continued bro.
+
+

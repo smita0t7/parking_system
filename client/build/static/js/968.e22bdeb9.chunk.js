@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[968],{7968:(e,l,s)=>{s.r(l),s.d(l,{default:()=>c});var t=s(9662),a=s(579);const c=(0,t.A)((0,a.jsx)("path",{d:"M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"}),"Download")}}]);
+//# sourceMappingURL=968.e22bdeb9.chunk.js.map
