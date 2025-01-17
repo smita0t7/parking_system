@@ -19,28 +19,32 @@ const ConfirmedSlot = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [open, setOpen] = React.useState(false); // Move state initialization here
+  // State for the confirmation dialog
+  const [open, setOpen] = React.useState(false);
 
+  // If no slot data is passed through the state, display a fallback message
   if (!state?.slot) {
-    return <Typography variant="h6">No slot data available.</Typography>;
+    return <Typography variant="h6">No parking slot details available.</Typography>;
   }
 
   const { slot } = state;
 
-  // Filter out empty or undefined fields
+  // Filter slot details to exclude empty or undefined fields
   const filteredSlotDetails = Object.entries(slot).filter(
     ([key, value]) => value !== '' && value !== null && value !== undefined
   );
 
+  // Function to handle slot deletion
   const handleDelete = () => {
-    // Add delete API logic here
+    // Replace this with an actual API call for deletion
     console.log('Deleting slot:', slot);
-    setOpen(false);
+    setOpen(false); // Close the dialog
     navigate('/'); // Navigate to the home page after deletion
   };
 
+  // Function to handle slot editing
   const handleEdit = () => {
-    navigate('/CreateSlot', { state: { slot } }); // Pass the slot data to the "Create Slot" page
+    navigate('/CreateSlot', { state: { slot } }); // Redirect to the slot creation page with current slot data
   };
 
   return (
@@ -61,14 +65,14 @@ const ConfirmedSlot = () => {
         mb={3}
         color="primary"
       >
-        Slot Confirmation
+        Parking Slot Details
       </Typography>
 
       <List>
         {filteredSlotDetails.map(([key, value]) => (
           <ListItem key={key}>
             <ListItemText
-              primary={key}
+              primary={key.replace(/_/g, ' ').toUpperCase()} // Format key for better readability
               secondary={Array.isArray(value) ? value.join(', ') : value}
             />
           </ListItem>
@@ -106,7 +110,7 @@ const ConfirmedSlot = () => {
         <DialogTitle>Delete Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this slot? This action cannot be undone.
+            Are you sure you want to delete this parking slot? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

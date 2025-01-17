@@ -184,25 +184,28 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
-  TextField, MenuItem, Button, FormControlLabel, Checkbox, Container,
-  Typography, Grid, Paper, CircularProgress
+  TextField, MenuItem, Button, Container, Typography, Grid, Paper, CircularProgress
 } from '@mui/material';
 
 const CreateSlot = () => {
   const navigate = useNavigate();
-  const [room, setRoom] = useState({
-    room_number: '', floor_number: '', building_name: '', room_type: 'Single', rent: '',
-    availability: true, tenant_name: '', tenant_email: '', tenant_phone: '',
-    lease_start_date: '', lease_end_date: ''
+  const [slot, setSlot] = useState({
+    customerName: '',
+    phoneNumber: '',
+    vehicleNumber: '',
+    vehicleType: 'Car',
+    duration: '',
+    rentPerHour: 50, // Default value
+    arrivalTime: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const onChange = useCallback((e) => {
-    const { name, value, type, checked } = e.target;
-    setRoom((prevRoom) => ({
-      ...prevRoom,
-      [name]: type === 'checkbox' ? checked : value,
+    const { name, value } = e.target;
+    setSlot((prevSlot) => ({
+      ...prevSlot,
+      [name]: value,
     }));
   }, []);
 
@@ -211,80 +214,80 @@ const CreateSlot = () => {
     setLoading(true);
     setError('');
 
-    // Validate rent
-    if (room.rent <= 0) {
-      setError('Rent must be a positive number.');
+    // Validate duration
+    if (slot.duration <= 0) {
+      setError('Duration must be a positive number.');
       setLoading(false);
       return;
     }
 
-    // Validate lease dates
-    if (room.lease_start_date && room.lease_end_date && new Date(room.lease_start_date) > new Date(room.lease_end_date)) {
-      setError('Lease start date cannot be later than the lease end date.');
+    // Validate phone number
+    if (!/^\+?\d{10,15}$/.test(slot.phoneNumber)) {
+      setError('Invalid phone number format. Must be 10-15 digits.');
       setLoading(false);
       return;
     }
 
     axios
-      .post('https://rntmgmt-vishal.onrender.com/api/lots', room)
+      .post('https://rntmgmt-vishal.onrender.com/api/parkinglots', slot)
       .then(() => {
-        alert('Room created successfully!');
-        setRoom({
-          room_number: '', floor_number: '', building_name: '', room_type: 'Single', rent: '',
-          availability: true, tenant_name: '', tenant_email: '', tenant_phone: '',
-          lease_start_date: '', lease_end_date: ''
+        alert('Slot created successfully!');
+        setSlot({
+          customerName: '',
+          phoneNumber: '',
+          vehicleNumber: '',
+          vehicleType: 'Car',
+          duration: '',
+          rentPerHour: 50,
+          arrivalTime: '',
         });
         setError('');
-        navigate('/rooms');
+        navigate('/parkinglots');
       })
       .catch((err) => {
-        const errorMessage = err.response?.data || 'Failed to create room. Please try again.';
+        const errorMessage = err.response?.data || 'Failed to create slot. Please try again.';
         setError(errorMessage);
       })
       .finally(() => setLoading(false));
-  }, [room, navigate]);
+  }, [slot, navigate]);
 
   return (
     <Container maxWidth="sm" sx={{ my: 5 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        Create New Room
-      </Typography>
-      <Typography variant="body2" color="textSecondary" align="center" gutterBottom>
-        Please fill in the details below to create a new room. Fields marked with <span style={{ color: 'red' }}>*</span> are mandatory.
+        Create New Parking Slot
       </Typography>
       <Paper sx={{ padding: 3 }}>
         <form onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                label="Room Number *"
+                label="Customer Name *"
                 variant="outlined"
                 fullWidth
-                name="room_number"
-                value={room.room_number}
+                name="customerName"
+                value={slot.customerName}
                 onChange={onChange}
                 required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                label="Floor Number *"
+                label="Phone Number *"
                 variant="outlined"
                 fullWidth
-                name="floor_number"
-                type="number"
-                value={room.floor_number}
+                name="phoneNumber"
+                value={slot.phoneNumber}
                 onChange={onChange}
                 required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                label="Building Name *"
+                label="Vehicle Number *"
                 variant="outlined"
                 fullWidth
-                name="building_name"
-                value={room.building_name}
+                name="vehicleNumber"
+                value={slot.vehicleNumber}
                 onChange={onChange}
                 required
               />
@@ -292,101 +295,50 @@ const CreateSlot = () => {
             <Grid item xs={12}>
               <TextField
                 select
-                label="Room Type *"
+                label="Vehicle Type *"
                 variant="outlined"
                 fullWidth
-                name="room_type"
-                value={room.room_type}
+                name="vehicleType"
+                value={slot.vehicleType}
                 onChange={onChange}
                 required
               >
-                <MenuItem value="Single">Single</MenuItem>
-                <MenuItem value="Double">Double</MenuItem>
-                <MenuItem value="Shared">Shared</MenuItem>
+                <MenuItem value="Car">Car</MenuItem>
+                <MenuItem value="Bike">Bike</MenuItem>
+                <MenuItem value="Truck">Truck</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Rent (₹ per month) *"
+                label="Duration (hours) *"
                 variant="outlined"
                 fullWidth
-                name="rent"
+                name="duration"
                 type="number"
-                value={room.rent}
+                value={slot.duration}
                 onChange={onChange}
                 required
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox name="availability" checked={room.availability} onChange={onChange} />}
-                label="Available"
-              />
-            </Grid>
-          </Grid>
-
-          <Typography variant="h6" gutterBottom>
-            Tenant Details (Optional)
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
               <TextField
-                label="Tenant Name"
+                label="Rent Per Hour (₹)"
                 variant="outlined"
                 fullWidth
-                name="tenant_name"
-                value={room.tenant_name}
+                name="rentPerHour"
+                type="number"
+                value={slot.rentPerHour}
                 onChange={onChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Tenant Email"
+                label="Arrival Time"
                 variant="outlined"
                 fullWidth
-                name="tenant_email"
-                type="email"
-                value={room.tenant_email}
-                onChange={onChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Tenant Phone"
-                variant="outlined"
-                fullWidth
-                name="tenant_phone"
-                type="tel"
-                value={room.tenant_phone}
-                onChange={onChange}
-              />
-            </Grid>
-          </Grid>
-
-          <Typography variant="h6" gutterBottom>
-            Lease Dates
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Lease Start Date"
-                variant="outlined"
-                fullWidth
-                name="lease_start_date"
-                type="date"
-                value={room.lease_start_date}
-                onChange={onChange}
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Lease End Date"
-                variant="outlined"
-                fullWidth
-                name="lease_end_date"
-                type="date"
-                value={room.lease_end_date}
+                name="arrivalTime"
+                type="time"
+                value={slot.arrivalTime}
                 onChange={onChange}
                 InputLabelProps={{ shrink: true }}
               />
@@ -394,11 +346,11 @@ const CreateSlot = () => {
           </Grid>
 
           <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading} sx={{ mt: 2 }}>
-            {loading ? <CircularProgress size={24} /> : 'Create Room'}
+            {loading ? <CircularProgress size={24} /> : 'Create Slot'}
           </Button>
 
           <Button
-            variant="outlined" color="secondary" fullWidth sx={{ mt: 2 }} onClick={() => navigate('/rooms')}
+            variant="outlined" color="secondary" fullWidth sx={{ mt: 2 }} onClick={() => navigate('/parkinglots')}
           >
             Cancel
           </Button>

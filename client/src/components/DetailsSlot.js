@@ -199,31 +199,30 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const DetailsSlot = () => {
-  const [room, setRoom] = useState(null);
+  const [slot, setSlot] = useState(null);
   const [error, setError] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Use useCallback to memoize the fetch function and prevent re-renders
-  const fetchRoomDetails = useCallback(() => {
+  const fetchSlotDetails = useCallback(() => {
     if (id) {
       axios
-        .get(`https://parkingsystem-8xdu.onrender.com/api/lots/:id${id}`)
-        .then((res) => setRoom(res.data))
-        .catch((err) => setError('Failed to load room details.'));
+        .get(`https://parkingsystem-8xdu.onrender.com/api/lots/${id}`)
+        .then((res) => setSlot(res.data))
+        .catch(() => setError('Failed to load slot details.'));
     }
   }, [id]);
 
   useEffect(() => {
-    fetchRoomDetails();
-  }, [fetchRoomDetails]);
+    fetchSlotDetails();
+  }, [fetchSlotDetails]);
 
   const handleDelete = () => {
     axios
-      .delete(`https://parkingsystem-8xdu.onrender.com/api//lots/:id${id}`)
-      .then(() => navigate('/rooms'))
-      .catch(() => setError('Failed to delete the room.'));
+      .delete(`https://parkingsystem-8xdu.onrender.com/api/lots/${id}`)
+      .then(() => navigate('/slots'))
+      .catch(() => setError('Failed to delete the slot.'));
     setOpenDialog(false);
   };
 
@@ -241,12 +240,12 @@ const DetailsSlot = () => {
     );
   }
 
-  if (!room) {
+  if (!slot) {
     return (
       <Container maxWidth="md">
         <StyledPaper>
           <Typography variant="h5" align="center">
-            Loading room details...
+            Loading slot details...
           </Typography>
         </StyledPaper>
       </Container>
@@ -262,9 +261,9 @@ const DetailsSlot = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image="https://roohtravel.com/wp-content/uploads/2023/07/thailand_hotels_with_pool.jpeg"
-                alt={room.room_number || 'Room Image'}
-                loading="lazy" // Lazy load the image for performance optimization
+                image="https://via.placeholder.com/300x200?text=Parking+Slot"
+                alt={slot.slot_number || 'Slot Image'}
+                loading="lazy"
                 onError={(e) => {
                   e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
                 }}
@@ -273,24 +272,25 @@ const DetailsSlot = () => {
           </Grid>
           <Grid item xs={12} md={8}>
             <Typography variant="h4" component="h1" gutterBottom>
-              Room {room.room_number}
+              Slot {slot.slot_number}
             </Typography>
             <Typography variant="h6" color="textSecondary" gutterBottom>
-              {room.room_type} - {room.building_name}
+              {slot.slot_type} - {slot.building_name}
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Box>
-              <Typography variant="body1">Room Number: {room.room_number}</Typography>
-              <Typography variant="body1">Floor: {room.floor_number}</Typography>
-              <Typography variant="body1">Building: {room.building_name}</Typography>
-              <Typography variant="body1">Rent: ${room.rent}</Typography>
+              <Typography variant="body1">Slot Number: {slot.slot_number}</Typography>
+              <Typography variant="body1">Floor: {slot.floor}</Typography>
+              <Typography variant="body1">Building: {slot.building_name}</Typography>
+              <Typography variant="body1">Rent: ₹{slot.rent_per_hour}/hr</Typography>
               <Typography variant="body1">
-                Availability: {room.availability ? 'Available' : 'Occupied'}
+                Availability: {slot.isAvailable ? 'Available' : 'Occupied'}
               </Typography>
-              <Typography variant="body1">Tenant: {room.tenant_name || 'N/A'}</Typography>
-              <Typography variant="body1">Tenant Email: {room.tenant_email || 'N/A'}</Typography>
-              <Typography variant="body1">Lease Start Date: {formatDate(room.lease_start)}</Typography>
-              <Typography variant="body1">Lease End Date: {formatDate(room.lease_end)}</Typography>
+              <Typography variant="body1">Customer: {slot.customer_name || 'N/A'}</Typography>
+              <Typography variant="body1">Phone Number: {slot.phone_number || 'N/A'}</Typography>
+              <Typography variant="body1">Vehicle Number: {slot.vehicle_number || 'N/A'}</Typography>
+              <Typography variant="body1">Arrival Time: {slot.arrival_time || 'N/A'}</Typography>
+              <Typography variant="body1">Duration: {slot.duration || 'N/A'} hrs</Typography>
             </Box>
           </Grid>
         </Grid>
@@ -298,32 +298,32 @@ const DetailsSlot = () => {
           <Button
             startIcon={<ArrowBackIcon />}
             component={RouterLink}
-            to="/rooms"
+            to="/slots"
             variant="outlined"
-            aria-label="Back to room list"
+            aria-label="Back to slot list"
           >
-            Back to Room List
+            Back to Slot List
           </Button>
           <Box>
             <Button
               startIcon={<EditIcon />}
               component={RouterLink}
-              to={`/edit-room/${room._id}`}
+              to={`/edit-slot/${slot._id}`}
               variant="contained"
               color="primary"
               sx={{ mr: 1 }}
-              aria-label="Edit room details"
+              aria-label="Edit slot details"
             >
-              Edit Room
+              Edit Slot
             </Button>
             <Button
               startIcon={<DeleteIcon />}
               variant="outlined"
               color="error"
               onClick={() => setOpenDialog(true)}
-              aria-label="Delete room"
+              aria-label="Delete slot"
             >
-              Delete Room
+              Delete Slot
             </Button>
           </Box>
         </Box>
@@ -339,7 +339,7 @@ const DetailsSlot = () => {
         <DialogTitle id="alert-dialog-title">{"Confirm Deletion"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this room? This action cannot be undone.
+            Are you sure you want to delete this slot? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
