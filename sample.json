@@ -1,27 +1,29 @@
 [
-    {
-      "id": "1",
-      "name": "Downtown Lot",
-      "location": "123 Main St",
-      "capacity": 50,
-      "availableSpaces": 20,
-      "description": "A convenient parking lot located downtown."
-    },
-    {
-      "id": "2",
-      "name": "Airport Lot",
-      "location": "456 Airport Rd",
-      "capacity": 200,
-      "availableSpaces": 150,
-      "description": "Large parking lot near the airport."
-    },
-    {
-      "id": "3",
-      "name": "Mall Parking",
-      "location": "789 Shopping Blvd",
-      "capacity": 100,
-      "availableSpaces": 60,
-      "description": "Parking for the shopping mall."
-    }
-  ]
-  
+  {
+    "customerName": "John Doe",
+    "phoneNumber": "1234567890",
+    "vehicleNumber": "ABC123",
+    "vehicleType": "Car",
+    "duration": 3,
+    "arrivalTime": "2025-01-20T10:00:00.000Z",
+    "bookingDate": "2025-01-20T00:00:00.000Z"
+  },
+  {
+    "customerName": "Jane Smith",
+    "phoneNumber": "9876543210",
+    "vehicleNumber": "XYZ789",
+    "vehicleType": "Motorcycle",
+    "duration": 5,
+    "arrivalTime": "2025-01-19T15:30:00.000Z",
+    "bookingDate": "2025-01-19T00:00:00.000Z"
+  },
+  {
+    "customerName": "Bob Brown",
+    "phoneNumber": "4567891230",
+    "vehicleNumber": "LMN456",
+    "vehicleType": "Truck",
+    "duration": 2,
+    "arrivalTime": "2025-01-18T09:00:00.000Z",
+    "bookingDate": "2025-01-18T00:00:00.000Z"
+  }
+]

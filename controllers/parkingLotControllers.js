@@ -1,12 +1,59 @@
-import ParkingLot from '../models/parkingLot.js'; // Import the ParkingLot model
+import ParkingLot from '../models/parkingLot.js';
 
-// Create a new parking slot
+// Utility function for manual validation
+const validateSlotInput = (data) => {
+    const errors = {};
+    if (Array.isArray(data)) {
+        // Handling multiple slots
+        data.forEach((slot, index) => {
+            if (!slot.customerName || typeof slot.customerName !== 'string') errors[`customerName-${index}`] = 'Customer name is required and must be a string.';
+            if (!slot.phoneNumber || typeof slot.phoneNumber !== 'string') errors[`phoneNumber-${index}`] = 'Phone number is required and must be a string.';
+            if (!slot.vehicleNumber || typeof slot.vehicleNumber !== 'string') errors[`vehicleNumber-${index}`] = 'Vehicle number is required and must be a string.';
+            if (!slot.vehicleType || typeof slot.vehicleType !== 'string') errors[`vehicleType-${index}`] = 'Vehicle type is required and must be a string.';
+            if (typeof slot.duration !== 'number' || slot.duration <= 0) errors[`duration-${index}`] = 'Duration is required and must be a positive number.';
+        });
+    } else {
+        // Handling a single slot
+        if (!data.customerName || typeof data.customerName !== 'string') errors.customerName = 'Customer name is required and must be a string.';
+        if (!data.phoneNumber || typeof data.phoneNumber !== 'string') errors.phoneNumber = 'Phone number is required and must be a string.';
+        if (!data.vehicleNumber || typeof data.vehicleNumber !== 'string') errors.vehicleNumber = 'Vehicle number is required and must be a string.';
+        if (!data.vehicleType || typeof data.vehicleType !== 'string') errors.vehicleType = 'Vehicle type is required and must be a string.';
+        if (typeof data.duration !== 'number' || data.duration <= 0) errors.duration = 'Duration is required and must be a positive number.';
+    }
+    return errors;
+};
+
+// Helper function to calculate total rent
+const calculateTotalRent = (duration, rentPerHour = 50) => {
+    if (isNaN(duration) || duration <= 0) return 0;
+    return duration * rentPerHour;
+};
+
+// Create parking slots (handle both single and multiple)
 export const createSlot = async (req, res) => {
     try {
-        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
+        const errors = validateSlotInput(req.body);
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json({ errors });
+        }
 
-        const rentPerHour = 50; // Default rent per hour
-        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
+        // If multiple slots are passed, insert them all at once
+        if (Array.isArray(req.body)) {
+            const slotsWithCalculatedRent = req.body.map(slot => {
+                const totalRent = calculateTotalRent(slot.duration, slot.rentPerHour);
+                return {
+                    ...slot,
+                    totalRent,
+                };
+            });
+            const savedSlots = await ParkingLot.insertMany(slotsWithCalculatedRent);
+            return res.status(201).json(savedSlots);
+        }
+
+        // If only a single slot is passed
+        const { customerName, phoneNumber, vehicleNumber, vehicleType, duration, arrivalTime, bookingDate } = req.body;
+        const rentPerHour = 50; // default rent per hour
+        const totalRent = calculateTotalRent(duration, rentPerHour);
 
         const newSlot = new ParkingLot({
             customerName,
@@ -16,14 +63,14 @@ export const createSlot = async (req, res) => {
             duration,
             rentPerHour,
             totalRent,
-            arrivalTime: arrivalTime || null,
+            arrivalTime: arrivalTime ? new Date(arrivalTime) : null,
             bookingDate: bookingDate ? new Date(bookingDate) : null,
         });
 
         const savedSlot = await newSlot.save();
-        res.status(201).json(savedSlot); // Return the newly created slot
+        res.status(201).json(savedSlot);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -31,9 +78,9 @@ export const createSlot = async (req, res) => {
 export const getAllSlots = async (req, res) => {
     try {
         const allSlots = await ParkingLot.find();
-        res.json(allSlots); // Return all parking slots
+        res.json(allSlots);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -41,10 +88,10 @@ export const getAllSlots = async (req, res) => {
 export const getSlotById = async (req, res) => {
     try {
         const slot = await ParkingLot.findById(req.params.id);
-        if (!slot) return res.status(404).json({ error: 'Slot not found' });
-        res.json(slot); // Return the slot by ID
+        if (!slot) return res.status(404).json({ error: 'Slot not found.' });
+        res.json(slot);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -52,44 +99,45 @@ export const getSlotById = async (req, res) => {
 export const updateSlot = async (req, res) => {
     try {
         const { id } = req.params;
-        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
+        const errors = validateSlotInput(req.body);
+        if (Object.keys(errors).length > 0) {
+            return res.status(400).json({ errors });
+        }
 
-        const rentPerHour = 50; // Default rent per hour
-        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
+        const { customerName, phoneNumber, vehicleNumber, vehicleType, duration, arrivalTime, bookingDate } = req.body;
+        const rentPerHour = 50;
+        const totalRent = calculateTotalRent(duration, rentPerHour);
 
         const updatedSlot = await ParkingLot.findByIdAndUpdate(
             id,
             {
-                vehicleType,
                 customerName,
                 phoneNumber,
                 vehicleNumber,
+                vehicleType,
                 duration,
                 rentPerHour,
                 totalRent,
-                arrivalTime,
-                bookingDate,
+                arrivalTime: arrivalTime ? new Date(arrivalTime) : null,
+                bookingDate: bookingDate ? new Date(bookingDate) : null,
             },
-            { new: true } // Return the updated document
+            { new: true }
         );
 
-        if (!updatedSlot) return res.status(404).json({ error: 'Slot not found' });
-        res.json(updatedSlot); // Return the updated slot
+        if (!updatedSlot) return res.status(404).json({ error: 'Slot not found.' });
+        res.json(updatedSlot);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
 
 // Delete a parking slot by ID
 export const deleteSlot = async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedSlot = await ParkingLot.findByIdAndDelete(id);
-
-        if (!deletedSlot) return res.status(404).json({ error: 'Slot not found' });
-
-        res.json({ message: 'Slot deleted successfully' }); // Return success message
+        const deletedSlot = await ParkingLot.findByIdAndDelete(req.params.id);
+        if (!deletedSlot) return res.status(404).json({ error: 'Slot not found.' });
+        res.json({ message: 'Slot deleted successfully.' });
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        res.status(500).json({ error: err.message });
     }
 };
