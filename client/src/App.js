@@ -15,7 +15,7 @@ import ExportParkingSlot from './components/ExportParkingSlots';  // Correct imp
 import QRCodePage from './components/QRCodePage';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import Navbar from './components/SlotCard';
+import SlotCard from './components/SlotCard';  // Renamed import
 
 const App = () => {
   return (

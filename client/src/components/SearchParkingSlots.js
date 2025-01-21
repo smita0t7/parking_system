@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import ParkingCard from './ParkingCard'; // Adjusted to use ParkingCard
+import SlotCard from './SlotCard'; // Adjusted to use SlotCard
 import axios from 'axios';
 import { debounce } from 'lodash';
 
@@ -27,8 +27,8 @@ const SearchParkingSlots = () => {
     const [slotTypes, setSlotTypes] = useState([]);
     const [filters, setFilters] = useState({
         searchTerm: '',
-        searchField: 'slot_type', // Changed to reflect parking slot
-        sortBy: 'slot_number', // Adjusted for parking slot
+        searchField: 'slot_type',
+        sortBy: 'slot_number',
         sortOrder: 'asc',
         slotType: 'all'
     });
@@ -49,7 +49,6 @@ const SearchParkingSlots = () => {
             });
     }, []);
 
-    // UseMemo to optimize filtering and sorting
     const applyFilters = useMemo(() => {
         return (filters) => {
             let result = [...parkingSlots];
@@ -83,7 +82,6 @@ const SearchParkingSlots = () => {
         };
     }, [parkingSlots]);
 
-    // Debounced function to handle search term changes
     const handleSearchTermChange = useCallback(
         debounce((value) => setFilters(prevFilters => ({ ...prevFilters, searchTerm: value })), 500),
         []
@@ -222,7 +220,7 @@ const SearchParkingSlots = () => {
             <Grid container spacing={3}>
                 {filteredParkingSlots.map((slot) => (
                     <Grid item sx={12} sm={6} md={4} key={slot._id}>
-                        <ParkingCard parkingSlot={slot} /> {/* Adjusted to use ParkingCard */}
+                        <SlotCard parkingSlot={slot} /> {/* Updated to use SlotCard */}
                     </Grid>
                 ))}
             </Grid>
