@@ -36,7 +36,7 @@ const CreateParkingSlot = () => {
     }
 
     axios
-      .post('http://yourapiurl.com/api/lots', slot) // Adjust with your API endpoint
+      .post('https://parking-system-j82e.onrender.com/api/lots', slot) // Adjust with your API endpoint
       .then(() => {
         alert('Parking slot created successfully!');
         setSlot({
@@ -169,3 +169,5 @@ const CreateParkingSlot = () => {
 };
 
 export default React.memo(CreateParkingSlot);
+
+

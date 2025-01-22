@@ -34,7 +34,7 @@ const SearchParkingSlots = () => {
     });
 
     useEffect(() => {
-        axios.get('https://your-api-url/parking-slots') // Adjust API URL
+        axios.get('https://parking-system-j82e.onrender.com/api/lots') // Adjust API URL
             .then(res => {
                 setParkingSlots(res.data);
                 setFilteredParkingSlots(res.data);

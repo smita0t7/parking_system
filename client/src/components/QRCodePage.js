@@ -21,7 +21,7 @@ const QRCodePage = () => {
   // Fetch parking lot data with optimization (memoization to prevent unnecessary requests)
   const fetchParkingLots = useCallback(async () => {
     try {
-      const res = await axios.get('https://your-backend-api-url/parking-lots');
+      const res = await axios.get('https://parking-system-j82e.onrender.com/api/lots');
       setParkingLots(res.data);
     } catch (err) {
       console.error('Error fetching parking lots:', err);

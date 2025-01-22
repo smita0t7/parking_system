@@ -11,7 +11,7 @@ function ShowParkingSlotList() {
 
     useEffect(() => {
         axios
-        .get('https://your-api-url/api/lots')  // Replace with your backend API URL for parking slots
+        .get('https://parking-system-j82e.onrender.com/api/lots')  // Replace with your backend API URL for parking slots
         .then((res) => {
             setSlots(res.data);
             setLoading(false);

@@ -19,7 +19,7 @@ const UpdateParkingSlotInfo = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://yourapiurl.com/api/lots/${id}`) // Replace with your API endpoint
+      .get(`https://parking-system-j82e.onrender.com/api/lots`) // Replace with your API endpoint
       .then((res) => {
         setSlot(res.data);
         setLoading(false);
@@ -51,7 +51,7 @@ const UpdateParkingSlotInfo = () => {
     }
 
     axios
-      .put(`http://yourapiurl.com/api/lots/${id}`, slot) // Replace with your API endpoint
+      .put(`https://parking-system-j82e.onrender.com/api/lots/:id${id}`, slot) // Replace with your API endpoint
       .then(() => {
         alert('Parking slot updated successfully!');
         navigate(`/lots/${id}`);

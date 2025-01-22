@@ -34,7 +34,7 @@ const Homepage = React.memo(() => {
 
     useEffect(() => {
         // Fetch parking slot data from the API
-        axios.get('/api/parking-slots') // Update with your backend API endpoint
+        axios.get('/api/lots') // Update with your backend API endpoint
             .then((res) => {
                 const slots = res.data;
                 const totalSlots = slots.length;

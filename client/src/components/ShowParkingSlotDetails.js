@@ -42,7 +42,7 @@ const ShowParkingSlotDetails = () => {
   const fetchParkingSlotDetails = useCallback(() => {
     if (id) {
       axios
-        .get(`https://your-api-url.com/api/parking-lots/${id}`)
+        .get(`https://parking-system-j82e.onrender.com/api/parking-lots/${id}`)
         .then((res) => setParkingSlot(res.data))
         .catch((err) => setError('Failed to load parking slot details.'));
     }
@@ -54,7 +54,7 @@ const ShowParkingSlotDetails = () => {
 
   const handleDelete = () => {
     axios
-      .delete(`https://your-api-url.com/api/parking-lots/${id}`)
+      .delete(`https://parking-system-j82e.onrender.com/api/lots/:id${id}`)
       .then(() => navigate('/parking-lots'))
       .catch(() => setError('Failed to delete the parking slot.'));
     setOpenDialog(false);
