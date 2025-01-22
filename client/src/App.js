@@ -13,7 +13,7 @@ import ShowParkingSlotList from './components/ShowParkingSlotList';
 import SearchParkingSlots from './components/SearchParkingSlots';
 import ExportParkingSlot from './components/ExportParkingSlots';  // Correct import for ExportParkingSlot
 import QRCodePage from './components/QRCodePage';
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import SlotCard from './components/SlotCard';  // Renamed import
 
@@ -22,7 +22,7 @@ const App = () => {
     <ThemeProvider>  {/* Use ThemeProvider here */}
       <CssBaseline /> {/* Ensures global styling is applied */}
       <SnackbarProvider
-        maxSnack={3}
+        maxSnack={2}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -34,8 +34,9 @@ const App = () => {
             <Routes>
               <Route exact path="/" element={<HomePage />} />
               <Route path="/create-parking-slot" element={<CreateParkingSlot />} />
-              <Route path="/update-parking-slot/:id" element={<UpdateParkingSlotInfo />} />
               <Route path="/parking-slot-details/:id" element={<ShowParkingSlotDetails />} />
+              <Route path="/update-parking-slot/:id" element={<UpdateParkingSlotInfo />} />
+              
               <Route path="/parking-slot-list" element={<ShowParkingSlotList />} />
               <Route path="/search-parking-slots" element={<SearchParkingSlots />} />
               <Route path="/export-parking-slot" element={<ExportParkingSlot />} />
@@ -43,7 +44,7 @@ const App = () => {
               <Route path="*" element={<div>404 - Page Not Found</div>} />
             </Routes>
           </Container>
-          <Footer />
+          {/* <Footer /> */}
         </Box>
       </SnackbarProvider>
     </ThemeProvider>

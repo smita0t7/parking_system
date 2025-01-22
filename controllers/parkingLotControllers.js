@@ -30,14 +30,59 @@ const calculateTotalRent = (duration, rentPerHour = 50) => {
 };
 
 // Create parking slots (handle both single and multiple)
+// export const createSlot = async (req, res) => {
+//     try {
+//         const errors = validateSlotInput(req.body);
+//         if (Object.keys(errors).length > 0) {
+//             return res.status(400).json({ errors });
+//         }
+
+//         // If multiple slots are passed, insert them all at once
+//         if (Array.isArray(req.body)) {
+//             const slotsWithCalculatedRent = req.body.map(slot => {
+//                 const totalRent = calculateTotalRent(slot.duration, slot.rentPerHour);
+//                 return {
+//                     ...slot,
+//                     totalRent,
+//                 };
+//             });
+//             const savedSlots = await ParkingLot.insertMany(slotsWithCalculatedRent);
+//             return res.status(201).json(savedSlots);
+//         }
+
+//         // If only a single slot is passed
+//         const { customerName, phoneNumber, vehicleNumber, vehicleType, duration, arrivalTime, bookingDate } = req.body;
+//         const rentPerHour = 50; // default rent per hour
+//         const totalRent = calculateTotalRent(duration, rentPerHour);
+
+//         const newSlot = new ParkingLot({
+//             customerName,
+//             phoneNumber,
+//             vehicleNumber,
+//             vehicleType,
+//             duration,
+//             rentPerHour,
+//             totalRent,
+//             arrivalTime: arrivalTime ? new Date(arrivalTime) : null,
+//             bookingDate: bookingDate ? new Date(bookingDate) : null,
+//         });
+
+//         const savedSlot = await newSlot.save();
+//         res.status(201).json(savedSlot);
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// };
+// parkingLotControllers.js
+
 export const createSlot = async (req, res) => {
     try {
-        const errors = validateSlotInput(req.body);
+        const errors = validateSlotInput(req.body);  // Validate the data sent
         if (Object.keys(errors).length > 0) {
-            return res.status(400).json({ errors });
+            return res.status(400).json({ errors });  // Return errors if any
         }
 
-        // If multiple slots are passed, insert them all at once
+        // Handle multiple slots
         if (Array.isArray(req.body)) {
             const slotsWithCalculatedRent = req.body.map(slot => {
                 const totalRent = calculateTotalRent(slot.duration, slot.rentPerHour);
@@ -47,12 +92,12 @@ export const createSlot = async (req, res) => {
                 };
             });
             const savedSlots = await ParkingLot.insertMany(slotsWithCalculatedRent);
-            return res.status(201).json(savedSlots);
+            return res.status(201).json(savedSlots);  // Return saved slots
         }
 
-        // If only a single slot is passed
+        // Handle a single slot
         const { customerName, phoneNumber, vehicleNumber, vehicleType, duration, arrivalTime, bookingDate } = req.body;
-        const rentPerHour = 50; // default rent per hour
+        const rentPerHour = 50;  // Default rent per hour
         const totalRent = calculateTotalRent(duration, rentPerHour);
 
         const newSlot = new ParkingLot({
@@ -68,11 +113,13 @@ export const createSlot = async (req, res) => {
         });
 
         const savedSlot = await newSlot.save();
-        res.status(201).json(savedSlot);
+        res.status(201).json(savedSlot);  // Return the saved slot
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error(err);  // Log the error for debugging
+        res.status(500).json({ error: err.message });  // Return the error
     }
 };
+
 
 // Get all parking slots
 export const getAllSlots = async (req, res) => {

@@ -1,3 +1,5 @@
+
+//EportParkingSlot.js
 import React, { Suspense, useState, useEffect } from 'react';
 import { Container, Paper, Typography, Button, Box, CircularProgress } from '@mui/material';
 import axios from 'axios'; // Added axios import
@@ -16,7 +18,7 @@ const ExportParkingSlots = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('/api/parkingSlots') // Assuming you have a similar endpoint for parking slots
+        axios.get('https://parking-system-j82e.onrender.com/api/lots') // Assuming you have a similar endpoint for parking slots
             .then(res => {
                 setSlots(res.data);
                 setLoading(false);

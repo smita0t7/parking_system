@@ -1,3 +1,5 @@
+//parkingLotRoutes.js
+
 import express from 'express';
 import {
     createSlot,
