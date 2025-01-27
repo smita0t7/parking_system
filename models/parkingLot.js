@@ -23,6 +23,6 @@ parkingLotSchema.pre('save', function (next) {
 });
 
 // Export the ParkingLot model
-const ParkingLot = mongoose.model('ParkingLot', parkingLotSchema);
+const parkingLot = mongoose.model('parkingLot', parkingLotSchema);
 
 export default parkingLot;
