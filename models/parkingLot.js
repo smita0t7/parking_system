@@ -16,11 +16,13 @@ const parkingLotSchema = new mongoose.Schema({
 
 // Middleware to calculate totalRent before saving
 parkingLotSchema.pre('save', function (next) {
-    this.totalRent = this.duration * this.rentPerHour;
+    if (!this.totalRent) {
+        this.totalRent = this.duration * this.rentPerHour;
+    }
     next();
 });
 
 // Export the ParkingLot model
 const ParkingLot = mongoose.model('ParkingLot', parkingLotSchema);
 
-export default ParkingLot;
+export default parkingLot;

@@ -155,12 +155,12 @@ const Homepage = React.memo(() => {
                 {/* Action Section */}
                 <Grid container spacing={3} justifyContent="center">
                     {[ 
-                        { to: '/parking-slot-list', label: 'View Slots', icon: <HomeIcon /> },
-                        { to: '/create-parking-slot', label: 'Create Slot', icon: <AddBusinessIcon /> },
-                        { to: '/export-parking-slot', label: 'Export Data', icon: <BarChartIcon /> },
+                        { to: '/slots', label: 'View Slots', icon: <HomeIcon /> },
+                        { to: '/add-slot', label: 'Create Slot', icon: <AddBusinessIcon /> },
+                        { to: '/export', label: 'Export Data', icon: <BarChartIcon /> },
                         { href: 'https://github.com/', label: 'GitHub', icon: <GitHubIcon /> },
-                        { to: '/search-parking-slots', label: 'Search Slots', icon: <SearchIcon /> },
-                        { to: '/qrcode', label: 'QR Codes', icon: <QrCodeIcon /> },
+                        { to: '/search', label: 'Search Slots', icon: <SearchIcon /> },
+                        { to: '/qrcodes', label: 'QR Codes', icon: <QrCodeIcon /> },
                     ].map((action, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <Button

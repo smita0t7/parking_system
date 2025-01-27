@@ -1,21 +1,27 @@
-//parkingLotRoutes.js
-
 import express from 'express';
 import {
-    createSlot,
-    getAllSlots,
-    getSlotById,
-    updateSlot,
-    deleteSlot,
+    createParkingSlot,
+    getAllParkingSlots,
+    getParkingSlotById,
+    updateParkingSlot,
+    deleteParkingSlot,
 } from '../controllers/parkingLotControllers.js';
 
 const router = express.Router();
 
-// Parking Slot CRUD routes
-router.post('/lots', createSlot); // Create a new parking slot
-router.get('/lots', getAllSlots); // Get all parking slots
-router.get('/lots/:id', getSlotById); // Get a parking slot by ID
-router.put('/lots/:id', updateSlot); // Update a parking slot by ID
-router.delete('/lots/:id', deleteSlot); // Delete a parking slot by ID
+// Create a parking slot
+router.post('/', createParkingSlot);
+
+// Get all parking slots
+router.get('/', getAllParkingSlots);
+
+// Get a single parking slot by ID
+router.get('/:id', getParkingSlotById);
+
+// Update a parking slot by ID
+router.put('/:id', updateParkingSlot);
+
+// Delete a parking slot by ID
+router.delete('/:id', deleteParkingSlot);
 
 export default router;

@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useMemo } from 'react';
-import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 // Define light and dark theme palettes with an updated white background
 const lightPalette = {
@@ -39,22 +38,13 @@ const darkPalette = {
 };
 
 // Create theme by mode
-export const createThemeByMode = (mode) => {
+export const createThemeByMode = (mode, existingTypography) => {
   const palette = mode === 'noctis-obscuro' ? darkPalette : lightPalette;
 
   return createTheme({
     palette,
     typography: {
-      // Retain default typography
+      ...existingTypography, // Retain original font size and family
     },
   });
-};
-
-// Create a context to provide the theme to the app
-const ThemeContext = createContext();
-
-// ThemeProvider component that wraps MuiThemeProvider and provides theme
-export const ThemeProvider = ({ children }) => {
-  const theme = useMemo(() => createThemeByMode('light'), []); // Static light theme
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>; // Proper return statement
 };

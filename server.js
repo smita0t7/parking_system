@@ -15,7 +15,7 @@ connectDB();
 
 // CORS Middleware
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Frontend URL for CORS
+    origin: process.env.FRONTEND_URL || 'https://parking-system-j82e.onrender.com', // Frontend URL for CORS
 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -25,14 +25,16 @@ app.use(cors(corsOptions));
 // Middleware to parse JSON requests
 app.use(express.json());
 
+
 // Debugging Middleware (development only)
 if (process.env.NODE_ENV !== 'production') {
     app.use((req, res, next) => {
         console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-        console.log('Body:', req.body);
+        console.log('Request Body:', req.body);
         next();
     });
 }
+
 
 // Parking lot routes
 app.use('/api', parkingLotRoutes);
