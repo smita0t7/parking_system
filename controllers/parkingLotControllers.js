@@ -1,108 +1,96 @@
-import ParkingLot from '../models/parkingLot.js';
+const ParkingLot = require('../models/parkingLot'); // Your ParkingLot model
 
-/**
- * Create a new parking slot
- */
-export const createParkingSlot = async (req, res) => {
+// Create a new parking slot
+exports.createSlot = async (req, res) => {
     try {
-        const { customerName, phoneNumber, vehicleNumber, vehicleType, duration } = req.body;
+        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
 
-        // Validate required fields
-        if (!customerName || !phoneNumber || !vehicleNumber || !vehicleType || !duration) {
-            return res.status(400).json({ error: 'All fields are required.' });
-        }
+        const rentPerHour = 50; // Default rent per hour
+        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
 
-        const totalRent = duration * 50; // Default rent per hour
-
-        const newParkingSlot = new ParkingLot({
+        const newSlot = new ParkingLot({
             customerName,
             phoneNumber,
             vehicleNumber,
             vehicleType,
             duration,
-            rentPerHour: 50,
+            rentPerHour,
             totalRent,
-            arrivalTime: new Date(),
-            bookingDate: new Date(),
+            arrivalTime: arrivalTime || null,
+            bookingDate: bookingDate ? new Date(bookingDate) : null,
         });
 
-        const savedParkingSlot = await newParkingSlot.save();
-        res.status(201).json(savedParkingSlot);
+        const savedSlot = await newSlot.save();
+        res.status(201).json(savedSlot); // Return the newly created slot
     } catch (err) {
-        console.error('Error creating parking slot:', err.message);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(400).json({ error: err.message });
     }
 };
 
-/**
- * Get all parking slots
- */
-export const getAllParkingSlots = async (req, res) => {
+// Get all parking slots
+exports.getAllSlots = async (req, res) => {
     try {
-        const parkingSlots = await ParkingLot.find();
-        res.status(200).json(parkingSlots);
+        const allSlots = await ParkingLot.find();
+        res.json(allSlots); // Return all parking slots
     } catch (err) {
-        console.error('Error fetching parking slots:', err.message);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(400).json({ error: err.message });
     }
 };
 
-/**
- * Get a single parking slot by ID
- */
-export const getParkingSlotById = async (req, res) => {
+// Get a parking slot by ID
+exports.getSlotById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const parkingSlot = await ParkingLot.findById(id);
-
-        if (!parkingSlot) {
-            return res.status(404).json({ error: 'Parking slot not found' });
-        }
-
-        res.status(200).json(parkingSlot);
+        const slot = await ParkingLot.findById(req.params.id);
+        if (!slot) return res.status(404).json({ error: 'Slot not found' });
+        res.json(slot); // Return the slot by ID
     } catch (err) {
-        console.error('Error fetching parking slot:', err.message);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(400).json({ error: err.message });
     }
 };
 
-/**
- * Update a parking slot by ID
- */
-export const updateParkingSlot = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const updatedData = req.body;
-
-        const updatedParkingSlot = await ParkingLot.findByIdAndUpdate(id, updatedData, { new: true });
-
-        if (!updatedParkingSlot) {
-            return res.status(404).json({ error: 'Parking slot not found' });
-        }
-
-        res.status(200).json(updatedParkingSlot);
-    } catch (err) {
-        console.error('Error updating parking slot:', err.message);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
-
-/**
- * Delete a parking slot by ID
- */
-export const deleteParkingSlot = async (req, res) => {
+// Update a parking slot by ID
+exports.updateSlot = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deletedParkingSlot = await ParkingLot.findByIdAndDelete(id);
+        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
 
-        if (!deletedParkingSlot) {
-            return res.status(404).json({ error: 'Parking slot not found' });
-        }
+        const rentPerHour = 50; // Default rent per hour
+        const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
 
-        res.status(200).json({ message: 'Parking slot deleted successfully' });
+        const updatedSlot = await ParkingLot.findByIdAndUpdate(
+            id,
+            {
+                vehicleType,
+                customerName,
+                phoneNumber,
+                vehicleNumber,
+                duration,
+                rentPerHour,
+                totalRent,
+                arrivalTime,
+                bookingDate,
+            },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedSlot) return res.status(404).json({ error: 'Slot not found' });
+        res.json(updatedSlot); // Return the updated slot
     } catch (err) {
-        console.error('Error deleting parking slot:', err.message);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Delete a parking slot by ID
+exports.deleteSlot = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedSlot = await ParkingLot.findByIdAndDelete(id);
+
+        if (!deletedSlot) return res.status(404).json({ error: 'Slot not found' });
+
+        res.json({ message: 'Slot deleted successfully' }); // Return success message
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 };

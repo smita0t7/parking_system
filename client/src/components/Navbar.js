@@ -1,176 +1,105 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    Box,
-    Menu,
-    MenuItem,
-    IconButton,
-    Divider,
-    useMediaQuery,
-    useTheme,
-    Drawer,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemIcon,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  Menu,
+  MenuItem,
+  Button,
+  Tooltip,
+
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import LocalParkingIcon from '@mui/icons-material/LocalParking';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import MenuIcon from '@mui/icons-material/Menu';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import HomeIcon from '@mui/icons-material/Home';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 const Navbar = () => {
-    const [parkingAnchorEl, setParkingAnchorEl] = useState(null);
-    const [vehicleAnchorEl, setVehicleAnchorEl] = useState(null);
-    const [drawerOpen, setDrawerOpen] = useState(false);
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
 
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const handleMenuOpen = (event) => setMenuAnchorEl(event.currentTarget);
 
-    // Handlers for menus and drawer
-    const handleOpenMenu = useCallback((setter) => (event) => setter(event.currentTarget), []);
-    const handleCloseMenu = useCallback((setter) => () => setter(null), []);
-    const toggleDrawer = useCallback((open) => () => setDrawerOpen(open), []);
 
-    // Parking-related links
-    const parkingLinks = [
-        { label: 'View Parking Slots', to: '/parking-slots' },
-        { label: 'Create Parking Slot', to: '/create-parking-slot' },
-        { label: 'Search Parking Slots', to: '/search-parking-slots' },
-    ];
+  const handleMenuClick = (event) => {
+    setMenuAnchorEl(event.currentTarget);
+  };
 
-    // Vehicle-related links
-    const vehicleLinks = [
-        { label: 'View Vehicles', to: '/vehicles' },
-        { label: 'Register Vehicle', to: '/register-vehicle' },
-    ];
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
 
-    const renderMenuItems = useCallback((items, handleClose) =>
-        items.map(({ label, to }) => (
-            <MenuItem key={label} component={RouterLink} to={to} onClick={handleClose}>
-                {label}
-            </MenuItem>
-        )), []);
+  return (
+    <AppBar position="static" color="transparent" elevation={0} sx={{ width: '100%' }}>
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'primary.main' }}>
+          Parking System
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Button
+            color="primary"
+            component={RouterLink}
+            to="/"
+            startIcon={<HomeIcon />}
+          >
+          </Button>
+          
 
-    const mobileMenu = (
-        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} aria-label="Main Menu">
-            <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-                <List>
-                    <ListItem button component={RouterLink} to="/" aria-label="Home">
-                        <ListItemIcon><HomeIcon /></ListItemIcon>
-                        <ListItemText primary="Home" />
-                    </ListItem>
-                    <ListItem button onClick={handleOpenMenu(setParkingAnchorEl)} aria-label="Parking Slots Menu">
-                        <ListItemIcon><LocalParkingIcon /></ListItemIcon>
-                        <ListItemText primary="Parking Slots" />
-                    </ListItem>
-                    <Menu
-                        anchorEl={parkingAnchorEl}
-                        open={Boolean(parkingAnchorEl)}
-                        onClose={handleCloseMenu(setParkingAnchorEl)}
-                    >
-                        {renderMenuItems(parkingLinks, handleCloseMenu(setParkingAnchorEl))}
-                    </Menu>
-                    <ListItem button onClick={handleOpenMenu(setVehicleAnchorEl)} aria-label="Vehicles Menu">
-                        <ListItemIcon><DirectionsCarIcon /></ListItemIcon>
-                        <ListItemText primary="Vehicles" />
-                    </ListItem>
-                    <Menu
-                        anchorEl={vehicleAnchorEl}
-                        open={Boolean(vehicleAnchorEl)}
-                        onClose={handleCloseMenu(setVehicleAnchorEl)}
-                    >
-                        {renderMenuItems(vehicleLinks, handleCloseMenu(setVehicleAnchorEl))}
-                    </Menu>
-                </List>
-            </Box>
-        </Drawer>
-    );
+          <IconButton
+            color="primary"
+            component="a"
+            href="https://github.com/alibha04/parkingSystem"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <GitHubIcon />
+          </IconButton>
 
-    return (
-        <AppBar position="sticky" sx={{ bgcolor: 'primary.main' }}>
-            <Toolbar>
-                <Typography
-                    variant="h6"
-                    component={RouterLink}
-                    to="/"
-                    sx={{
-                        flexGrow: 1,
-                        textDecoration: 'none',
-                        color: 'white',
-                        fontWeight: 700,
-                    }}
-                    aria-label="Parking Management Home"
+        
+          <IconButton
+            color="primary"
+            component="a"
+            href="https://docs.google.com/document/d/1CWyqXhAvyTfxwv0Giqa-ITFZZYGYbootp2S3_bSeOf8/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume"
+          >
+            <MenuBookIcon />
+          </IconButton>
+
+
+          <IconButton onClick={handleMenuOpen} color="inherit" position="left" >
+                    <MenuIcon />
+                </IconButton>
+                <Menu
+                    anchorEl={menuAnchorEl}
+                    open={Boolean(menuAnchorEl)}
+                    onClose={handleMenuClose}
                 >
-                    Parking Management
-                </Typography>
-                {isMobile ? (
-                    <>
-                        <IconButton
-                            color="inherit"
-                            edge="start"
-                            onClick={toggleDrawer(true)}
-                            aria-label="Menu"
-                            sx={{ ml: 1 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        {mobileMenu}
-                    </>
-                ) : (
-                    <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Button
-                            color="inherit"
-                            component={RouterLink}
-                            to="/"
-                            startIcon={<HomeIcon />}
-                            sx={{ textTransform: 'none' }}
-                            aria-label="Home"
-                        >
-                            Home
-                        </Button>
-                        <Button
-                            color="inherit"
-                            onClick={handleOpenMenu(setParkingAnchorEl)}
-                            startIcon={<LocalParkingIcon />}
-                            sx={{ textTransform: 'none' }}
-                            aria-label="Parking Slots Menu"
-                        >
-                            Parking Slots
-                        </Button>
-                        <Menu
-                            anchorEl={parkingAnchorEl}
-                            open={Boolean(parkingAnchorEl)}
-                            onClose={handleCloseMenu(setParkingAnchorEl)}
-                        >
-                            {renderMenuItems(parkingLinks, handleCloseMenu(setParkingAnchorEl))}
-                        </Menu>
-                        <Button
-                            color="inherit"
-                            onClick={handleOpenMenu(setVehicleAnchorEl)}
-                            startIcon={<DirectionsCarIcon />}
-                            sx={{ textTransform: 'none' }}
-                            aria-label="Vehicles Menu"
-                        >
-                            Vehicles
-                        </Button>
-                        <Menu
-                            anchorEl={vehicleAnchorEl}
-                            open={Boolean(vehicleAnchorEl)}
-                            onClose={handleCloseMenu(setVehicleAnchorEl)}
-                        >
-                            {renderMenuItems(vehicleLinks, handleCloseMenu(setVehicleAnchorEl))}
-                        </Menu>
-                    </Box>
-                )}
-            </Toolbar>
-            <Divider />
-        </AppBar>
-    );
+                    <MenuItem component={RouterLink} to="/CreateSlot" onClick={handleMenuClose}>
+                        Create Lot
+                    </MenuItem>
+                    <MenuItem component={RouterLink} to="/list" onClick={handleMenuClose}>
+                        Lot List
+                    </MenuItem>
+                    <MenuItem component={RouterLink} to="/search" onClick={handleMenuClose}>
+                        Search Lot
+                    </MenuItem>
+                    <MenuItem component={RouterLink} to="/export" onClick={handleMenuClose}>
+                        Download QR
+                    </MenuItem>
+                    <MenuItem component={RouterLink} to="/about" onClick={handleMenuClose}>
+                        About
+                    </MenuItem>
+                </Menu>
+
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
-export default React.memo(Navbar);
+export default Navbar;

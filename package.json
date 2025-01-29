@@ -2,7 +2,7 @@
   "name": "parking_system",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "node -r dotenv/config server.js",
     "server": "node server.js",

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[758],{9758:(h,z,v)=>{v.r(z),v.d(z,{default:()=>s});var m=v(9662),e=v(579);const s=(0,m.A)((0,e.jsx)("path",{d:"M3 11h8V3H3zm2-6h4v4H5zM3 21h8v-8H3zm2-6h4v4H5zm8-12v8h8V3zm6 6h-4V5h4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"}),"QrCode")}}]);
-//# sourceMappingURL=758.8c0c7654.chunk.js.map

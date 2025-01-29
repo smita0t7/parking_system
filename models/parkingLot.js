@@ -1,28 +1,53 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 // Define the schema for a parking lot
 const parkingLotSchema = new mongoose.Schema({
-    customerName: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    vehicleNumber: { type: String, required: true },
-    vehicleType: { type: String, required: true },
-    duration: { type: Number, required: true },
-    rentPerHour: { type: Number, default: 50 },
-    totalRent: { type: Number, default: 0 },
-    arrivalTime: { type: Date, default: null },
-    bookingDate: { type: Date, default: null },
-    createdAt: { type: Date, default: Date.now },
+    customerName: {
+        type: String,
+        required: true,
+    },
+    phoneNumber: {
+        type: String,
+        required: true,
+    },
+    vehicleNumber: {
+        type: String,
+        required: true,
+    },
+    vehicleType: {
+        type: String,
+        required: true,
+    },
+    duration: {
+        type: Number,
+        required: true,
+    },
+    rentPerHour: {
+        type: Number,
+        default: 50,  // You can keep a default or set it when creating a new slot
+    },
+    totalRent: {
+        type: Number,
+        default: 0, // This will be calculated based on duration and rentPerHour
+    },
+    arrivalTime: {
+        type: String,
+    },
+    bookingDate: {
+        type: Date,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
-// Middleware to calculate totalRent before saving
-parkingLotSchema.pre('save', function (next) {
-    if (!this.totalRent) {
-        this.totalRent = this.duration * this.rentPerHour;
-    }
-    next();
-});
+// Add a method to calculate the total rent based on duration and rent per hour
+parkingLotSchema.methods.calculateTotalRent = function () {
+    this.totalRent = this.duration * this.rentPerHour;
+};
 
 // Export the ParkingLot model
-const parkingLot = mongoose.model('parkingLot', parkingLotSchema);
+const ParkingLot = mongoose.model('ParkingLot', parkingLotSchema);
 
-export default parkingLot;
+module.exports = ParkingLot;

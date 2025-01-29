@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[487],{6487:(h,e,t)=>{t.r(e),t.d(e,{default:()=>c});var a=t(9662),s=t(579);const c=(0,a.A)((0,s.jsx)("path",{d:"M4 9h4v11H4zm12 4h4v7h-4zm-6-9h4v16h-4z"}),"BarChart")}}]);
-//# sourceMappingURL=487.537667e7.chunk.js.map

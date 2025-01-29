@@ -35,7 +35,7 @@ const CreateSlot = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
+        setError(''); // Clear previous errors
 
         // Validation
         if (!slot.vehicleType || !slot.customerName || !slot.phoneNumber || !slot.vehicleNumber || !slot.duration) {
@@ -45,7 +45,7 @@ const CreateSlot = () => {
         }
 
         try {
-            await axios.post('https://parking-system-j82e.onrender.com/api/lots', slot);
+            await axios.post('https://parkingsystem-8xdu.onrender.com/api/lots', slot);
             alert('Slot created successfully!');
             setSlot({
                 slotNumber: Math.floor(Math.random() * 1000) + 1,
@@ -132,6 +132,28 @@ const CreateSlot = () => {
                     <Typography variant="body1" sx={{ mt: 2 }}>
                         Total Rent: {slot.totalRent} Rupees
                     </Typography>
+                    <TextField
+                        fullWidth
+                        label="Arrival Time"
+                        name="arrivalTime"
+                        type="time"
+                        value={slot.arrivalTime}
+                        onChange={onChange}
+                        InputLabelProps={{ shrink: true }}
+                        variant="outlined"
+                        margin="normal"
+                    />
+                    <TextField
+                        fullWidth
+                        label="Booking Date"
+                        name="bookingDate"
+                        type="date"
+                        value={slot.bookingDate}
+                        onChange={onChange}
+                        InputLabelProps={{ shrink: true }}
+                        variant="outlined"
+                        margin="normal"
+                    />
                     <Grid container spacing={2} sx={{ mt: 3 }}>
                         <Grid item xs={6}>
                             <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
