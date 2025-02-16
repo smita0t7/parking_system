@@ -50,7 +50,7 @@ const Navbar = () => {
           <IconButton
             color="primary"
             component="a"
-            href="https://github.com/alibha04/parkingSystem"
+            href="https://github.com/smita0t7/parking_system"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -62,7 +62,7 @@ const Navbar = () => {
           <IconButton
             color="primary"
             component="a"
-            href="https://docs.google.com/document/d/1CWyqXhAvyTfxwv0Giqa-ITFZZYGYbootp2S3_bSeOf8/edit?usp=sharing"
+            href="https://docs.google.com/document/d/1Y2Uf9ZuDR1dejvmMc7R051KkvGgmoW7PBs8m8ernswc/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Resume"

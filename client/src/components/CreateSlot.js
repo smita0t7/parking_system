@@ -45,7 +45,7 @@ const CreateSlot = () => {
         }
 
         try {
-            await axios.post('https://parkingsystem-8xdu.onrender.com/api/lots', slot);
+            await axios.post('https://parking-system-j82e.onrender.com/api/lots', slot);
             alert('Slot created successfully!');
             setSlot({
                 slotNumber: Math.floor(Math.random() * 1000) + 1,
@@ -83,6 +83,9 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <TextField
                         fullWidth
@@ -93,6 +96,9 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <TextField
                         fullWidth
@@ -103,15 +109,19 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <FormControl fullWidth margin="normal">
-                        <InputLabel>Vehicle Type *</InputLabel>
+                        <InputLabel sx={{ color: 'black' }}>Vehicle Type *</InputLabel>
                         <Select
                             name="vehicleType"
                             value={slot.vehicleType}
                             onChange={onChange}
                             variant="outlined"
                             required
+                            sx={{ color: 'black' }}
                         >
                             <MenuItem value="Car">Car</MenuItem>
                             <MenuItem value="Bike">Bike</MenuItem>
@@ -128,6 +138,9 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <Typography variant="body1" sx={{ mt: 2 }}>
                         Total Rent: {slot.totalRent} Rupees
@@ -142,6 +155,9 @@ const CreateSlot = () => {
                         InputLabelProps={{ shrink: true }}
                         variant="outlined"
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <TextField
                         fullWidth
@@ -153,6 +169,9 @@ const CreateSlot = () => {
                         InputLabelProps={{ shrink: true }}
                         variant="outlined"
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'black' },
+                        }}
                     />
                     <Grid container spacing={2} sx={{ mt: 3 }}>
                         <Grid item xs={6}>
@@ -178,3 +197,4 @@ const CreateSlot = () => {
 };
 
 export default CreateSlot;
+

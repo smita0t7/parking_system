@@ -15,7 +15,7 @@ const ExportPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/parking-slots') // Update with your API endpoint
+    axios.get('https://parking-system-j82e.onrender.com/api/lots') // Update with your API endpoint
       .then((res) => {
         setSlots(res.data);
         setLoading(false);

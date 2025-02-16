@@ -84,7 +84,7 @@ const DetailsSlot = () => {
                 height="300"
                 image={
                   slot.imageUrl ||
-                  'https://www.google.com/imgres?q=parking%20system%20with%20cars%20sunset%20aesthetic%20pictures%20of%20high%20resolution&imgurl=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fsmart-systems-parking-management-solid-color-background-4k-ultra-hd_964851-139796.jpg&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Fpremium-ai-image%2Fsmart-systems-parking-management-solid-color-background-4k-ultra-hd_172863802.htm&docid=DIG6eMVwTaE_KM&tbnid=luN4-tCmC5I0LM&vet=12ahUKEwjBtZOYjZWLAxUNSWwGHSIHIzY4ChAzegQIIhAA..i&w=626&h=351&hcb=2&ved=2ahUKEwjBtZOYjZWLAxUNSWwGHSIHIzY4ChAzegQIIhAA'
+                  'https://www.google.com/imgres?q=parking%20area%20design%20astethic&imgurl=https%3A%2F%2Fimages.deccanherald.com%2Fdeccanherald%252Fimport%252Fsites%252Fdh%252Ffiles%252Fgallery_images%252Ffile7myjwpsxeb8hv9fahdc.jpg&imgrefurl=https%3A%2F%2Fwww.deccanherald.com%2Fspecials%2Fsmart-designs-for-your-car-park-1149882.html&docid=cMNSISkJ7sjkIM&tbnid=nrnmp7uJyu0IeM&vet=12ahUKEwiKnsuLv8iLAxXfRWcHHaZ8KtkQM3oECBoQAA..i&w=1200&h=710&hcb=2&ved=2ahUKEwiKnsuLv8iLAxXfRWcHHaZ8KtkQM3oECBoQAA'
                 }
                 alt={slot.customerName || 'Default Slot Image'}
               />
