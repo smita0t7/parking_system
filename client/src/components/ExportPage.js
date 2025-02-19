@@ -14,21 +14,36 @@ const ExportPage = () => {
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch parking slots
   useEffect(() => {
-    axios.get('https://parking-system-j82e.onrender.com/api/lots') // Update with your API endpoint
+    axios.get('https://parking-system-j82e.onrender.com/api/lots')
       .then((res) => {
-        setSlots(res.data);
+        console.log('Fetched slots:', res.data); // Debugging
+        if (Array.isArray(res.data)) {
+          setSlots(res.data);
+        } else {
+          console.error('Unexpected API response format:', res.data);
+        }
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error in fetching parking slots at ExportPage:', err);
+        console.error('Error fetching parking slots at ExportPage:', err);
         setLoading(false);
       });
   }, []);
 
+  // Check if slots exist before exporting
+  const checkAndProceed = (exportFunc) => {
+    if (slots.length === 0) {
+      alert('No parking slot data available to export.');
+      return;
+    }
+    exportFunc();
+  };
+
+  // Export to PDF
   const exportToPDF = () => {
     const doc = new jsPDF();
-
     doc.setFontSize(16);
     doc.text('Parking Slots List', 14, 15);
     doc.setFontSize(10);
@@ -56,6 +71,7 @@ const ExportPage = () => {
     doc.save('parking-slots-list.pdf');
   };
 
+  // Export to Excel
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       slots.map((slot) => ({
@@ -75,6 +91,7 @@ const ExportPage = () => {
     saveAs(data, 'parking-slots-list.xlsx');
   };
 
+  // Export to CSV
   const exportToCSV = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       slots.map((slot) => ({
@@ -92,6 +109,7 @@ const ExportPage = () => {
     saveAs(data, 'parking-slots-list.csv');
   };
 
+  // Export to Text
   const exportToText = () => {
     let content = 'Parking Slots List\n\n';
     content += `Generated on: ${new Date().toLocaleDateString()}\n\n`;
@@ -128,6 +146,11 @@ const ExportPage = () => {
         <Typography variant="body1" sx={{ mb: 4 }} align="center" color="text.secondary">
           Export your parking slots data in different formats
         </Typography>
+
+        <Button variant="outlined" onClick={() => console.log(slots)} sx={{ mb: 2 }}>
+          Check Data in Console
+        </Button>
+
         <Box
           sx={{
             display: 'grid',
@@ -140,7 +163,7 @@ const ExportPage = () => {
             variant="contained"
             size="large"
             startIcon={<PictureAsPdfIcon />}
-            onClick={exportToPDF}
+            onClick={() => checkAndProceed(exportToPDF)}
             sx={{ p: 2 }}
           >
             Export as PDF
@@ -149,7 +172,7 @@ const ExportPage = () => {
             variant="contained"
             size="large"
             startIcon={<TableViewIcon />}
-            onClick={exportToCSV}
+            onClick={() => checkAndProceed(exportToCSV)}
             sx={{ p: 2 }}
           >
             Export as CSV
@@ -158,7 +181,7 @@ const ExportPage = () => {
             variant="contained"
             size="large"
             startIcon={<DownloadIcon />}
-            onClick={exportToExcel}
+            onClick={() => checkAndProceed(exportToExcel)}
             sx={{ p: 2 }}
           >
             Export as Excel
@@ -167,12 +190,13 @@ const ExportPage = () => {
             variant="contained"
             size="large"
             startIcon={<DescriptionIcon />}
-            onClick={exportToText}
+            onClick={() => checkAndProceed(exportToText)}
             sx={{ p: 2 }}
           >
             Export as Text
           </Button>
         </Box>
+
         <Typography variant="body2" sx={{ mt: 4 }} align="center" color="text.secondary">
           Total Parking Slots: {slots.length}
         </Typography>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import { createThemeByMode } from './container/Theme.js'; // Correct import for theme
+import { createThemeByMode } from './container/neonGlowTheme.js'; // Correct import for theme
 import './index.css';
 
 // Create a theme instance (example: use light mode)

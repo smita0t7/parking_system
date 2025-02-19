@@ -2,7 +2,7 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createThemeByMode } from '../container/Theme';
+import { createThemeByMode } from '../container/neonGlowTheme';
 
 export const ThemeModeContext = createContext();
 
