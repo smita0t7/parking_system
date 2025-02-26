@@ -278,7 +278,45 @@ const DetailsSlot = () => {
             </Box>
           </Grid>
         </Grid>
+        <Box mt={4} display="flex" justifyContent="space-between">
+          <Button startIcon={<ArrowBackIcon />} component={RouterLink} to="/slots" variant="outlined">
+            Back to Parking Slots
+          </Button>
+          <Box>
+            <Button
+              startIcon={<EditIcon />}
+              component={RouterLink}
+              to={`/edit-slot/${slot._id}`}
+              variant="contained"
+              color="primary"
+              sx={{ mr: 1 }}
+            >
+              Edit Slot
+            </Button>
+            <Button startIcon={<DeleteIcon />} onClick={onDeleteClick} variant="contained" color="error">
+              Delete Slot
+            </Button>
+          </Box>
+        </Box>
       </StyledPaper>
+
+      <Dialog open={openDialog} onClose={handleDeleteCancel} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{"Confirm Deletion"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this parking slot? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="error" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* </StyledPaper> */}
     </Container>
   );
 };
