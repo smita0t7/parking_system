@@ -69,6 +69,7 @@ import Navbar from './components/Navbar';
 import ExportPage from './components/ExportPage';
 import SearchPage from './components/SearchSlot';
 import QRCodePage from "./components/QRCodePage";
+import About from './components/About';
 
 const App = () => {
     // State to manage theme mode (dark/light)
@@ -111,6 +112,7 @@ const App = () => {
                             <Route path="/export" element={<ExportPage />} />
                             <Route path="/search" element={<SearchPage />} />
                             <Route path="/qrcodes" element={<QRCodePage />} />
+                            <Route path="/about" element={<About/>} />
                             <Route path="*" element={<div>404 - Page Not Found</div>} />
                         </Routes>
                     </Container>
