@@ -3,12 +3,13 @@ const ParkingLot = require('../models/parkingLot'); // Your ParkingLot model
 // Create a new parking slot
 exports.createSlot = async (req, res) => {
     try {
-        const { vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
+        const { slotNumber, vehicleType, customerName, phoneNumber, vehicleNumber, duration, arrivalTime, bookingDate } = req.body;
 
         const rentPerHour = 50; // Default rent per hour
         const totalRent = (parseInt(duration, 10) || 0) * rentPerHour;
 
         const newSlot = new ParkingLot({
+            slotNumber, // Accept slot number from frontend
             customerName,
             phoneNumber,
             vehicleNumber,
@@ -26,6 +27,7 @@ exports.createSlot = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
 
 // Get all parking slots
 exports.getAllSlots = async (req, res) => {
