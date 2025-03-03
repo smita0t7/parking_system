@@ -25,43 +25,38 @@ const CreateSlot = () => {
         const { name, value } = e.target;
         setSlot((prev) => {
             const updatedSlot = { ...prev, [name]: value };
-    
-            // Update totalRent dynamically if duration changes
+
             if (name === 'duration') {
                 updatedSlot.totalRent = (parseInt(value, 10) || 0) * prev.rentPerHour;
             }
-    
+
             return updatedSlot;
         });
     };
-    
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
 
-        // Validation
         if (!slot.vehicleType || !slot.customerName || !slot.phoneNumber || !slot.vehicleNumber || !slot.duration) {
             setError('Please fill all required fields.');
             setLoading(false);
             return;
         }
 
-        // Format data before sending
         const formattedData = {
             ...slot,
-            slotNumber: Number(slot.slotNumber), // Ensure slotNumber is a number
-            duration: Number(slot.duration), // Ensure duration is a number
-            bookingDate: slot.bookingDate ? new Date(slot.bookingDate) : null, // Convert to Date object
-            arrivalTime: slot.arrivalTime || null, // Ensure arrival time is valid
+            slotNumber: Number(slot.slotNumber),
+            duration: Number(slot.duration),
+            bookingDate: slot.bookingDate ? new Date(slot.bookingDate) : null,
+            arrivalTime: slot.arrivalTime || null,
         };
 
         try {
             await axios.post('https://parking-system-j82e.onrender.com/api/lots', formattedData);
             alert('Slot created successfully!');
 
-            // Reset form fields after submission
             setSlot({
                 slotNumber: Math.floor(Math.random() * 1000) + 1,
                 vehicleType: '',
@@ -99,6 +94,7 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        sx={{ input: { color: 'black' } }} // Fix text visibility
                     />
                     <TextField
                         fullWidth
@@ -109,6 +105,7 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        sx={{ input: { color: 'black' } }}
                     />
                     <TextField
                         fullWidth
@@ -119,15 +116,17 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        sx={{ input: { color: 'black' } }}
                     />
                     <FormControl fullWidth margin="normal">
-                        <InputLabel>Vehicle Type *</InputLabel>
+                        <InputLabel sx={{ color: 'black' }}>Vehicle Type *</InputLabel>
                         <Select
                             name="vehicleType"
                             value={slot.vehicleType}
                             onChange={onChange}
                             variant="outlined"
                             required
+                            sx={{ color: 'black' }} // Ensures text is visible
                         >
                             <MenuItem value="Car">Car</MenuItem>
                             <MenuItem value="Bike">Bike</MenuItem>
@@ -144,6 +143,7 @@ const CreateSlot = () => {
                         variant="outlined"
                         margin="normal"
                         required
+                        sx={{ input: { color: 'black' } }}
                     />
                     <Typography variant="body1" sx={{ mt: 2 }}>
                         Total Rent: {slot.totalRent} Rupees
@@ -158,6 +158,7 @@ const CreateSlot = () => {
                         InputLabelProps={{ shrink: true }}
                         variant="outlined"
                         margin="normal"
+                        sx={{ input: { color: 'black' } }}
                     />
                     <TextField
                         fullWidth
@@ -169,6 +170,7 @@ const CreateSlot = () => {
                         InputLabelProps={{ shrink: true }}
                         variant="outlined"
                         margin="normal"
+                        sx={{ input: { color: 'black' } }}
                     />
                     <Grid container spacing={2} sx={{ mt: 3 }}>
                         <Grid item xs={6}>
@@ -194,3 +196,5 @@ const CreateSlot = () => {
 };
 
 export default CreateSlot;
+
+

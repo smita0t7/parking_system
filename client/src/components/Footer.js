@@ -1,3 +1,63 @@
+// // // src/components/Footer.js
+// // import React from 'react';
+// // import { Box, Typography } from '@mui/material';
+
+// // const Footer = () => (
+// //   <Box 
+// //     component="footer" 
+// //     sx={{
+// //       position: 'relative', // Fixed position
+// //       bottom: 0,
+// //       bgcolor: 'background.paper',
+// //       color: 'text.secondary',
+// //       py: 4,
+// //       width: '100%',
+// //       textAlign: 'center',
+// //       maxHeight:'100px',
+// //       borderTop: `1px solid ${theme => theme.palette.primary.main}`, // Optional: add a top border
+// //     }}
+// //   >
+// //     <Typography variant="h6" gutterBottom>
+// //       Built with ❤️ smita
+// //     </Typography>
+// //     <Typography variant="body2" sx={{ mt: 2 }}>
+// //       © {new Date().getFullYear()} SAMBITA SUNAYANA | All Rights Reserved
+// //     </Typography>
+// //   </Box>
+// // );
+
+// // export default Footer;  
+
+
+// // src/components/Footer.js
+// import React from "react";
+// import { Box, Typography } from "@mui/material";
+
+// const Footer = () => (
+//   <Box
+//     component="footer"
+//     sx={{
+//       position:"relative",
+//       bgcolor: "#121417", // Dark background
+//       color: "#c0c0d0", // Light text
+//       py: 2,
+//       textAlign: "center",
+//       width: "100%",
+//       borderTop: "1px solid #00ffcc", // Thin border at the top
+//     }}
+//   >
+//     <Typography variant="h6" sx={{ fontSize: "1rem", fontWeight: "bold" }}>
+//       Built with <span style={{ color: "red" }}>❤️</span> SMITA
+//     </Typography>
+//     <Typography variant="body2" sx={{ mt: 1, fontSize: "0.9rem" }}>
+//       © {new Date().getFullYear()} Smita | All Rights Reserved
+//     </Typography>
+//   </Box>
+// );
+
+// export default Footer;
+
+
 // src/components/Footer.js
 import React from 'react';
 import { Box, Typography, Grid, Divider, Link, Container } from '@mui/material';
@@ -7,6 +67,7 @@ const Footer = () => (
   <Box
     component="footer"
     sx={{
+      position:"relative",
       bottom: 0,
       bgcolor: 'background.paper',
       color: 'text.secondary',
@@ -43,7 +104,7 @@ const Footer = () => (
           <Box display="flex" justifyContent="center" gap={2}>
             <Link
               component="a"
-              href="https://github.com/smita0t7"
+              href="https://github.com/alibha04"
               target="_blank"
               rel="noopener noreferrer"
               sx={{
@@ -57,7 +118,7 @@ const Footer = () => (
             </Link>
             <Link
               component="a"
-              href="https://www.linkedin.com/in/smita-sarangi-564021327/"
+              href="https://www.linkedin.com/in/alibha-pradhan-050210327/"
               target="_blank"
               rel="noopener noreferrer"
               sx={{
